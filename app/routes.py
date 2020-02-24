@@ -9,13 +9,13 @@ from flask_login import current_user, login_user, logout_user, login_required
 @app.route('/home')
 def home():
     flash("Hello and welcome to my site again usel, please enjoy nofing so fal")
-    return render_template('home.html')
+    return render_template('home.html', title='Home')
 
 
 @app.route('/user')
 def user():
     if current_user.is_authenticated:
-        return render_template('user.html', username=current_user.username)
+        return render_template('user.html', username=current_user.username, title=current_user.username)
     return redirect(url_for('login'))
 
 
@@ -31,7 +31,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('home'))
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=form, title='Login')
 
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -46,7 +46,7 @@ def register():
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
-    return render_template('register.html', form=form)
+    return render_template('register.html', form=form, title='Register')
 
 
 @app.route('/logout')
