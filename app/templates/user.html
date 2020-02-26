@@ -1,21 +1,27 @@
 {% extends "base.html" %}
 {% block app_content %}
-    <table>
+    <table style="margin-top: 1%; width: 21%;">
         <tr valign="top">
-            <td><img style="border-style: solid; border-radius: 10%;" src="{{ avatars.robohash(user.username) }}"></td>
+            <td><img style="border-style: solid; border-radius: 10%;" src="{{ avatars.robohash(username) }}"></td>
             <td>
                 <h3 style="margin-left: 1%;">{{ username }}</h3>
-                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-                <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
+                {% if user.about_me %}<p style="margin-left: 2%; ">About me: {{ user.about_me }}</p>{% endif %}
+                <p style="margin-left: 2%;">Followers: {{ user.followers.count() }} Following: {{ user.followed.count() }}</p>
                 {% if user == current_user %}
-                <p>gg</p>
+                <p style="margin-left: 2%;"></p>
                 {% elif not current_user.is_following(user) %}
-                <p><a href="{{ url_for('follow', username=user.username) }}">Follow</a></p>
+                <p style="margin-left: 2%;"><a href="{{ url_for('follow', username=user.username) }}">Follow</a></p>
                 {% else %}
-                <p><a href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a></p>
+                <p style="margin-left: 2%;"><a href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a></p>
                 {% endif %}
             </td>
         </tr>
     </table>
+
+<div style="margin-top: 1%;">
+    {% for post in posts %}
+        {% include "_post.html" %}
+    {% endfor %}
+</div>
 
 {% endblock %}

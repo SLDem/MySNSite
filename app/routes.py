@@ -25,7 +25,7 @@ def home():
             db.session.commit()
             flash('Your post has been posted!')
             return redirect(url_for('home'))
-        posts = Post.query.all()
+        posts = Post.query.order_by(Post.timestamp.desc()).all()
         return render_template('home.html', title='Home', form=form, username=current_user.username, posts=posts)
     return redirect(url_for('login'))
 
@@ -35,7 +35,8 @@ def home():
 def user(username):
     if current_user.is_authenticated:
         user = User.query.filter_by(username=username).first_or_404()
-        return render_template('user.html', title='User Page', user=user, username=username)
+        posts = user.posts.order_by(Post.timestamp.desc())
+        return render_template('user.html', title='User Page', user=user, username=username, posts=posts)
     return redirect(url_for('login'))
 
 
