@@ -8,8 +8,8 @@ from flask_moment import Moment
 from flask_avatars import Avatars
 import os
 
-
 basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 csrf = CsrfProtect()
 app = Flask(__name__)

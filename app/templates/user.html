@@ -2,7 +2,7 @@
 {% block app_content %}
     <table>
         <tr valign="top">
-            <td><img style="border-style: solid; border-radius: 10%;" src="{{ current_user.avatar(128) }}"></td>
+            <td><img style="border-style: solid; border-radius: 10%;" src="{{ avatars.robohash(current_user.username) }}"></td>
             <td>
                 <h3 style="margin-left: 1%;">{{ current_user.username }}</h3>
                 {% if current_user.about_me %}

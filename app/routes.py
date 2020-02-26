@@ -3,8 +3,17 @@ from app import app, db
 from app.models import User, Post
 from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm
 from flask_login import current_user, login_user, logout_user, login_required
+from datetime import datetime
 
 
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
+
+
+@login_required
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/home', methods=['POST', 'GET'])
 def home():
@@ -15,7 +24,8 @@ def home():
         db.session.commit()
         flash('Your post has been posted!')
         return redirect(url_for('home'))
-    return render_template('home.html', title='Home', form=form, username=current_user)
+    posts = current_user.followed_posts().all()
+    return render_template('home.html', title='Home', form=form, username=current_user, posts=posts,)
 
 
 @login_required
