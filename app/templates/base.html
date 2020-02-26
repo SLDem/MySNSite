@@ -9,6 +9,14 @@
     </head>
     <body>
     <style type="text/css">
+        .search_button {
+        border-style: solid;
+        border-width: 0.7px;
+        border-radius: 10%;
+        color: grey !important;
+        font-size: 22px;
+        }
+
         .avatar {
         border-style: solid;
         border-color: black;
@@ -16,9 +24,37 @@
         margin-right: 83%;
         border-radius: 10%;
         }
+
+
+        .button {
+        outline: none !important;
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #C4C8CE;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+        }
+
+        .button:hover {background-color: #C3C5C8}
+
+        .button:active {
+
+        background-color: #C4C8CE;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+        }
+
+
     </style>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="#">Nabvar</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,7 +64,7 @@
                 <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/user">User</a>
+                <a class="nav-link" href="{{url_for('user', username=current_user.username) }}">User</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,7 +89,7 @@
             </ul>
             <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              <button class="search_button" type="submit">Search</button>
             </form>
           </div>
         </nav>

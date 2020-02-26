@@ -1,22 +1,30 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.models import User
-from app.forms import LoginForm, RegisterForm, EditProfileForm
+from app.models import User, Post
+from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm
 from flask_login import current_user, login_user, logout_user, login_required
 
 
-@app.route('/')
-@app.route('/home')
+@app.route('/', methods=['POST', 'GET'])
+@app.route('/home', methods=['POST', 'GET'])
 def home():
-    flash("Welcome to my site!")
-    return render_template('home.html', title='Home')
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(body=form.post.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post has been posted!')
+        return redirect(url_for('home'))
+    return render_template('home.html', title='Home', form=form, username=current_user)
 
 
 @login_required
-@app.route('/user')
-def user():
-    user = User.query.filter_by(username=current_user.username)
-    return render_template('user.html', title=current_user.username, user=user)
+@app.route('/user/<username>')
+def user(username):
+    if current_user.is_authenticated:
+        user = User.query.filter_by(username=username).first_or_404()
+        return render_template('user.html', title='User Page', user=user, username=username)
+    return redirect(url_for('login'))
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -71,7 +79,4 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', form=form, title='Edit Profile')
-
-
-
 
