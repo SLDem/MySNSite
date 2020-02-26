@@ -2,17 +2,13 @@
     <tr>
         <td width="70x">
             <a href="{{ url_for('user', username=post.author.username) }}">
-                <img src="{{ avatars.robohash(post.author.username, size='80') }}" />
+                <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px;" src="{{ avatars.robohash(post.author.username, size='80') }}" />
             </a>
         </td>
         <td>
-            {% set user_link %}
-                <a href="{{ url_for('user', username=post.author.username) }}">
-                    {{ post.author.username }}
-                </a>
-            {% endset %}
-            {{ '{0} said: {1}'.format(post.author.username, when) }}
-            <br>
+            <p><a href="{{ url_for('user', username=post.author.username) }}">
+                {{ post.author.username }}
+            </a>said: </p>
             <span id="post{{ post.id }}">{{ post.body }}</span>
         </td>
     </tr>

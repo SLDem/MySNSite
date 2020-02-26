@@ -4,6 +4,7 @@
       <w>asdert</w>
       <w>congradulations</w>
       <w>dropdown</w>
+      <w>elif</w>
       <w>endblock</w>
       <w>endblokc</w>
       <w>endfor</w>
@@ -13,6 +14,7 @@
       <w>navbar</w>
       <w>robohash</w>
       <w>sqlalchemy</w>
+      <w>unfollow</w>
     </words>
   </dictionary>
 </component>

@@ -17,15 +17,17 @@ def before_request():
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/home', methods=['POST', 'GET'])
 def home():
-    form = PostForm()
-    if form.validate_on_submit():
-        post = Post(body=form.post.data, author=current_user)
-        db.session.add(post)
-        db.session.commit()
-        flash('Your post has been posted!')
-        return redirect(url_for('home'))
-    posts = current_user.followed_posts().all()
-    return render_template('home.html', title='Home', form=form, username=current_user, posts=posts,)
+    if current_user.is_authenticated:
+        form = PostForm()
+        if form.validate_on_submit():
+            post = Post(body=form.post.data, author=current_user)
+            db.session.add(post)
+            db.session.commit()
+            flash('Your post has been posted!')
+            return redirect(url_for('home'))
+        posts = Post.query.all()
+        return render_template('home.html', title='Home', form=form, username=current_user.username, posts=posts)
+    return redirect(url_for('login'))
 
 
 @login_required
@@ -89,4 +91,46 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', form=form, title='Edit Profile')
+
+
+@login_required
+@app.route('/follow/<username>')
+def follow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User {} not found'.format(username))
+        return redirect(url_for('home'))
+    if user == current_user:
+        flash('You cannot follow yourself')
+        return redirect(url_for('user', username=username))
+    current_user.follow(user)
+    db.session.commit()
+    flash('You are following {}!'.format(username))
+    return redirect(url_for('user', username=username))
+
+
+@login_required
+@app.route('/unfollow/<username>')
+def unfollow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User {} not found'.format(username))
+        return redirect(url_for('home'))
+    if user == current_user:
+        flash('You cannot unfollow yourself')
+        return redirect(url_for('user', username=username))
+    current_user.unfollow(user)
+    db.session.commit()
+    flash('You are not following {}!'.format(username))
+    return redirect(url_for('user', username=username))
+
+
+
+
+
+
+
+
+
+
 

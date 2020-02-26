@@ -2,13 +2,17 @@
 {% block app_content %}
     <table>
         <tr valign="top">
-            <td><img style="border-style: solid; border-radius: 10%;" src="{{ avatars.robohash(current_user.username) }}"></td>
+            <td><img style="border-style: solid; border-radius: 10%;" src="{{ avatars.robohash(user.username) }}"></td>
             <td>
-                <h3 style="margin-left: 1%;">{{ current_user.username }}</h3>
-                {% if current_user.about_me %}
-                    <p style="margin-left: 1%; width: 100%;">About Me: {{current_user.about_me}}</p>
+                <h3 style="margin-left: 1%;">{{ username }}</h3>
+                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+                <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
+                {% if user == current_user %}
+                <p>gg</p>
+                {% elif not current_user.is_following(user) %}
+                <p><a href="{{ url_for('follow', username=user.username) }}">Follow</a></p>
                 {% else %}
-                    <p style="margin-left: 1%; width: 100%;"> Go to edit profile setting to tell us more about yourself!</p>
+                <p><a href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a></p>
                 {% endif %}
             </td>
         </tr>
