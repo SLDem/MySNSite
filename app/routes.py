@@ -126,10 +126,17 @@ def unfollow(username):
     return redirect(url_for('user', username=username))
 
 
-
-
-
-
+@login_required
+@app.route('/like/<int:post_id>/<action>')
+def like_action(post_id, action):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if action == 'like':
+        current_user.like(post)
+        db.session.commit()
+    elif action == 'dislike':
+        current_user.dislike(post)
+        db.session.commit()
+    return redirect(request.referrer)
 
 
 

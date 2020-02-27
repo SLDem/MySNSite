@@ -11,9 +11,11 @@
       <w>endset</w>
       <w>endwith</w>
       <w>houm</w>
+      <w>likers</w>
       <w>navbar</w>
       <w>robohash</w>
       <w>sqlalchemy</w>
+      <w>tablename</w>
       <w>unfollow</w>
     </words>
   </dictionary>
