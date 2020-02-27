@@ -10,14 +10,14 @@
                 {{ post.author.username }}
             </a>said: </p>
             <p style="width: 60%; font-style: georgia" id="post{{ post.id }}">{{ post.body }}</p>
-            <div class="button" style="margin-left: 85%;">
+            <div class="button" style="margin-left: 90%; margin-top: -2%;">
             {% if current_user.liked_post(post) %}
-                <a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}">Dislike</a>
+                <a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}">&#128078</a>
             {% else %}
-                <a href="{{ url_for('like_action', post_id=post.id, action='like') }}">Like</a>
+                <a href="{{ url_for('like_action', post_id=post.id, action='like') }}">&#128077</a>
             {% endif %}
             </div>
-            <p style="width: 11%;">{{ post.likes.count() }} &#128077</p>
+            <p style="width: 11%;">{{ post.likes.count() }}&#128077</p>
         </td>
     </tr>
 </table>

@@ -81,12 +81,6 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-likers = db.Table('likers',
-                  db.Column('liker_id', db.Integer, db.ForeignKey('post.id')),
-                  db.Column('liked_id', db.Integer, db.ForeignKey('post.id'))
-                  )
-
-
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))

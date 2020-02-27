@@ -3,7 +3,7 @@
 {% block app_content %}
     <h2>Hi, {{current_user.username}}</h2>
     {% if form %}
-    {{ wtf.quick_form(form) }}
+    {{ wtf.quick_form(form, button_map={'submit':'btn btn-outline-dark'}) }}
     <br>
     {% endif %}
     {% for post in posts %}
