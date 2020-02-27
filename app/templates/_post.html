@@ -1,4 +1,4 @@
-<table class="table table-hover">
+<table class="table table-bordered">
     <tr>
         <td width="70x">
             <a href="{{ url_for('user', username=post.author.username) }}">
@@ -9,7 +9,7 @@
             <p><a href="{{ url_for('user', username=post.author.username) }}">
                 {{ post.author.username }}
             </a>said: </p>
-            <p style="width: 60%; font-style: italic" id="post{{ post.id }}">{{ post.body }}</p>
+            <p style="width: 60%; font-style: georgia" id="post{{ post.id }}">{{ post.body }}</p>
             <div class="button" style="margin-left: 85%;">
             {% if current_user.liked_post(post) %}
                 <a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}">Dislike</a>
