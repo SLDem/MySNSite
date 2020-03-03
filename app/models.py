@@ -27,11 +27,13 @@ class User(UserMixin, db.Model):
 
     posts = db.relationship("Post", backref='author', lazy='dynamic')
     comments = db.relationship("Comment", backref='commenter', lazy='dynamic')
+
     followed = db.relationship(
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+
     liked = db.relationship(
         'PostLike',
         foreign_keys='PostLike.user_id',
