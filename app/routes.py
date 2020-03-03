@@ -33,20 +33,6 @@ def home():
 
 
 @login_required
-@app.route('/comment/<int:post_id>', methods=['GET', 'POST'])
-def comment(post_id):
-    post = Post.query.filter_by(id=post_id).first_or_404()
-    form = CommentForm()
-    if form.validate_on_submit():
-        user_comment = Comment(body=form.comment.data, commenter=current_user, post_id=post.id)
-        db.session.add(user_comment)
-        db.session.commit()
-        flash('Comment added!')
-        return redirect(url_for('home'))
-    return render_template('post_comment.html', form=form)
-
-
-@login_required
 @app.route('/user/<username>')
 def user(username):
     if current_user.is_authenticated:
@@ -156,3 +142,21 @@ def like_action(post_id, action):
     return redirect(request.referrer)
 
 
+@login_required
+@app.route('/comment/<int:post_id>', methods=['GET', 'POST'])
+def comment(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    form = CommentForm()
+    if form.validate_on_submit():
+        user_comment = Comment(body=form.comment.data, commenter=current_user, post_id=post.id)
+        db.session.add(user_comment)
+        db.session.commit()
+        flash('Comment added!')
+        return redirect(url_for('home'))
+    return render_template('post_comment.html', form=form, title='Post Comment')
+
+
+@login_required
+@app.route('/carmen')
+def carmen():
+    return render_template('carmen.html', title='Carmen Electra')
