@@ -52,7 +52,8 @@ def user(username):
     if current_user.is_authenticated:
         user = User.query.filter_by(username=username).first_or_404()
         posts = user.posts.order_by(Post.timestamp.desc())
-        return render_template('user.html', title='User Page', user=user, username=username, posts=posts)
+        comments = Comment.query.all()
+        return render_template('user.html', title='User Page', user=user, username=username, posts=posts, comments=comments)
     return redirect(url_for('login'))
 
 
