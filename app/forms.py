@@ -48,3 +48,8 @@ class EditProfileForm(FlaskForm):
 class PostForm(FlaskForm):
     post = TextAreaField("Whats new?", validators=[DataRequired(), Length(min=1, max=1028)])
     submit = SubmitField('Post!')
+
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField("Write a comment: ", validators=[DataRequired()])
+    submit = SubmitField("Comment!")

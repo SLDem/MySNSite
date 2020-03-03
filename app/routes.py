@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.models import User, Post
-from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm
+from app.models import User, Post, Comment
+from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm, CommentForm
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime
 
@@ -26,8 +26,24 @@ def home():
             flash('Your post has been posted!')
             return redirect(url_for('home'))
         posts = Post.query.order_by(Post.timestamp.desc()).all()
-        return render_template('home.html', title='Home', form=form, username=current_user.username, posts=posts)
+        comments = Comment.query.all()
+        return render_template('home.html', title='Home', form=form, username=current_user.username, posts=posts,
+                               comments=comments)
     return redirect(url_for('login'))
+
+
+@login_required
+@app.route('/comment/<int:post_id>', methods=['GET', 'POST'])
+def comment(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    form = CommentForm()
+    if form.validate_on_submit():
+        user_comment = Comment(body=form.comment.data, commenter=current_user, post_id=post.id)
+        db.session.add(user_comment)
+        db.session.commit()
+        flash('Comment added!')
+        return redirect(url_for('home'))
+    return render_template('post_comment.html', form=form)
 
 
 @login_required
@@ -127,7 +143,7 @@ def unfollow(username):
 
 
 @login_required
-@app.route('/like/<int:post_id>/<action>')
+@app.route('/like/<int:post_id>/<action>', methods=['GET', 'POST'])
 def like_action(post_id, action):
     post = Post.query.filter_by(id=post_id).first_or_404()
     if action == 'like':
@@ -137,8 +153,5 @@ def like_action(post_id, action):
         current_user.dislike(post)
         db.session.commit()
     return redirect(request.referrer)
-
-
-
 
 
