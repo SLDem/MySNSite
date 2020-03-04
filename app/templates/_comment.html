@@ -1,6 +1,6 @@
-<table class="table table-bordered">
-    <tr>
-        <td width="70x" >
+<table class="table table-bordered" style="border-left: 7px solid; border-color: #30F153">
+    <tr style="border: solid; border-color: grey; border-width: 2px;">
+        <td width="70x">
             <a href="{{ url_for('user', username=comment.commenter.username) }}">
                 <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px;" src="{{ avatars.robohash(comment.commenter.username, size='40') }}" />
             </a>
@@ -8,7 +8,7 @@
         <td>
             <p><a href="{{ url_for('user', username=comment.commenter.username) }}">
                 {{ comment.commenter.username }}
-            </a>commented: </p> <p style="margin-left: 90%;"> {{comment.timestamp.replace(microsecond=0)}}</p>
+            </a>commented: </p> <p style="margin-left: 90%; margin-top: -2%;">..at {{comment.timestamp.replace(microsecond=0)}}</p>
             <p style="width: 60%;">{{ comment.body }}</p>
             <div class="button" style="margin-left: 95%; margin-top: -2%; margin-bottom: -10%;">
             {% if current_user.liked_comment(comment) %}

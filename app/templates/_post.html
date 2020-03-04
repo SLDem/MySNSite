@@ -1,5 +1,5 @@
 <table class="table table-bordered">
-    <tr>
+    <tr style="border: solid; border-color: #1B1C1C; border-width: 2px;">
         <td width="70x">
             <a href="{{ url_for('user', username=post.author.username) }}">
                 <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px;" src="{{ avatars.robohash(post.author.username, size='80') }}" />
@@ -8,7 +8,7 @@
         <td>
             <p><a href="{{ url_for('user', username=post.author.username) }}">
                 {{ post.author.username }}
-            </a>said: </p> <p style="margin-left: 90%;"> {{post.timestamp.replace(microsecond=0)}}</p>
+            </a>said: </p> <p style="margin-left: 90%; margin-top: -2%;">..at {{post.timestamp.replace(microsecond=0)}}</p>
             <p style="width: 60%;" id="post{{ post.id }}">{{ post.body }}</p>
             <div class="button" style="margin-left: 95%; margin-top: -2%;">
             {% if current_user.liked_post(post) %}
@@ -26,5 +26,5 @@
         {% include "_comment.html" %}
     {% endif %}
 {% endfor %}
-<p style="margin-bottom: 4%; margin-top: 1%;"><a style="border: solid; border-radius: 5%; border-color: black; border-width: 1px; padding: 10px; margin-left: 10px; margin-top: 10%;" href="/comment/{{post.id}}"> Post Comment ▲</a></p>
+<p style="margin-bottom: 4%; margin-top: 1%;"><a style="border: solid; border-radius: 4%; border-color: black; border-width: 1px; padding: 10px; margin-left: 10px; margin-top: 10%;" href="/comment/{{post.id}}"> Post Comment ▲</a></p>
 
