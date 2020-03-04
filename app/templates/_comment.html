@@ -1,6 +1,6 @@
 <table class="table table-bordered">
     <tr>
-        <td width="70x">
+        <td width="70x" >
             <a href="{{ url_for('user', username=comment.commenter.username) }}">
                 <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px;" src="{{ avatars.robohash(comment.commenter.username, size='40') }}" />
             </a>
@@ -8,8 +8,16 @@
         <td>
             <p><a href="{{ url_for('user', username=comment.commenter.username) }}">
                 {{ comment.commenter.username }}
-            </a>commented: </p>
+            </a>commented: </p> <p style="margin-left: 90%;"> {{comment.timestamp.replace(microsecond=0)}}</p>
             <p style="width: 60%;">{{ comment.body }}</p>
+            <div class="button" style="margin-left: 95%; margin-top: -2%; margin-bottom: -10%;">
+            {% if current_user.liked_comment(comment) %}
+                <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='dislike') }}">&#128078</a>
+            {% else %}
+                <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='like') }}">&#128077</a>
+            {% endif %}
+            </div>
+            <p style="width: 11%;">{{ comment.comment_likes.count() }}&#128077</p>
         </td>
     </tr>
 </table>

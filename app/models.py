@@ -39,6 +39,11 @@ class User(UserMixin, db.Model):
         foreign_keys='PostLike.user_id',
         backref='user', lazy='dynamic')
 
+    comment_liked = db.relationship(
+        'CommentLike',
+        foreign_keys='CommentLike.user_id',
+        backref='user', lazy='dynamic')
+
     def __repr__(self):
         return "<User>".format(self.username)
 
@@ -82,6 +87,19 @@ class User(UserMixin, db.Model):
         return PostLike.query.filter(PostLike.user_id == self.id,
                                      PostLike.post_id == post.id).count() > 0
 
+    def like_comment(self, comment):
+        if not self.liked_comment(comment):
+            like = CommentLike(user_id=self.id, comment_id=comment.id)
+            db.session.add(like)
+
+    def dislike_comment(self, comment):
+        if self.liked_comment(comment):
+            CommentLike.query.filter_by(user_id=self.id, comment_id=comment.id).delete()
+
+    def liked_comment(self, comment):
+        return CommentLike.query.filter(CommentLike.user_id == self.id,
+                                        CommentLike.comment_id == comment.id).count() > 0
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -94,13 +112,6 @@ class Post(db.Model):
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
 
 
-class PostLike(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-
-
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(1028))
@@ -108,3 +119,19 @@ class Comment(db.Model):
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    comment_likes = db.relationship('CommentLike', backref='comment', lazy='dynamic')
+
+
+class PostLike(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+
+class CommentLike(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
