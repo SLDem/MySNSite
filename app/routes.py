@@ -33,6 +33,20 @@ def home():
 
 
 @login_required
+@app.route('/comment/<int:post_id>', methods=['GET', 'POST'])
+def comment(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    form = CommentForm()
+    if form.validate_on_submit():
+        user_comment = Comment(body=form.comment.data, commenter=current_user, post_id=post.id)
+        db.session.add(user_comment)
+        db.session.commit()
+        flash('Comment added!')
+        return redirect(url_for('home'))
+    return render_template('post_comment.html', form=form, title='Post Comment')
+
+
+@login_required
 @app.route('/user/<username>')
 def user(username):
     if current_user.is_authenticated:
@@ -130,20 +144,6 @@ def unfollow(username):
 
 
 @login_required
-@app.route('/comment/<int:post_id>', methods=['GET', 'POST'])
-def comment(post_id):
-    post = Post.query.filter_by(id=post_id).first_or_404()
-    form = CommentForm()
-    if form.validate_on_submit():
-        user_comment = Comment(body=form.comment.data, commenter=current_user, post_id=post.id)
-        db.session.add(user_comment)
-        db.session.commit()
-        flash('Comment added!')
-        return redirect(url_for('home'))
-    return render_template('post_comment.html', form=form, title='Post Comment')
-
-
-@login_required
 @app.route('/like/<int:post_id>/<action>', methods=['GET', 'POST'])
 def like_action(post_id, action):
     post = Post.query.filter_by(id=post_id).first_or_404()
@@ -167,7 +167,6 @@ def comment_like_action(comment_id, action):
         current_user.dislike_comment(comment)
         db.session.commit()
     return redirect(request.referrer)
-
 
 
 @login_required
