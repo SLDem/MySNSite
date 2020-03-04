@@ -1,18 +1,20 @@
-from flask import render_template, flash, redirect, url_for, request
-from app import app, db
+from flask import render_template, flash, redirect, url_for, request, send_from_directory
+from app import app, db, ALLOWED_EXTENSIONS, UPLOAD_FOLDER
 from app.models import User, Post, Comment
 from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm, CommentForm
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime
+from werkzeug.utils import secure_filename
+import os
 
-
+# getting user last seen time( currently not in use and probably wont be cuz mainstream )
 @app.before_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
-
+# home page
 @login_required
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/home', methods=['POST', 'GET'])
@@ -31,7 +33,7 @@ def home():
                                comments=comments)
     return redirect(url_for('login'))
 
-
+# posting comments button
 @login_required
 @app.route('/comment/<int:post_id>', methods=['GET', 'POST'])
 def comment(post_id):
@@ -45,7 +47,7 @@ def comment(post_id):
         return redirect(url_for('home'))
     return render_template('post_comment.html', form=form, title='Post Comment')
 
-
+# user page
 @login_required
 @app.route('/user/<username>')
 def user(username):
@@ -56,7 +58,7 @@ def user(username):
         return render_template('user.html', title='User Page', user=user, username=username, posts=posts, comments=comments)
     return redirect(url_for('login'))
 
-
+# logging users in
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if current_user.is_authenticated:
@@ -71,7 +73,7 @@ def login():
         return redirect(url_for('home'))
     return render_template('login.html', form=form, title='Login')
 
-
+# registering users
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if current_user.is_authenticated:
@@ -86,7 +88,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form, title='Register')
 
-
+# logging users out
 @login_required
 @app.route('/logout')
 def logout():
@@ -94,7 +96,7 @@ def logout():
     flash('You have been logged out!')
     return redirect(url_for('home'))
 
-
+# editing profile
 @login_required
 @app.route('/edit_profile', methods=['POST', 'GET'])
 def edit_profile():
@@ -110,7 +112,7 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', form=form, title='Edit Profile')
 
-
+# following users
 @login_required
 @app.route('/follow/<username>')
 def follow(username):
@@ -126,7 +128,7 @@ def follow(username):
     flash('You are following {}!'.format(username))
     return redirect(url_for('user', username=username))
 
-
+# unfollowing users
 @login_required
 @app.route('/unfollow/<username>')
 def unfollow(username):
@@ -142,7 +144,7 @@ def unfollow(username):
     flash('You are not following {}!'.format(username))
     return redirect(url_for('user', username=username))
 
-
+# liking of posts
 @login_required
 @app.route('/like/<int:post_id>/<action>', methods=['GET', 'POST'])
 def like_action(post_id, action):
@@ -155,7 +157,7 @@ def like_action(post_id, action):
         db.session.commit()
     return redirect(request.referrer)
 
-
+# liking of comments
 @login_required
 @app.route('/comment_like/<int:comment_id>/<action>', methods=['GET', 'POST'])
 def comment_like_action(comment_id, action):
@@ -169,6 +171,35 @@ def comment_like_action(comment_id, action):
     return redirect(request.referrer)
 
 
+# file uploading (avatar)
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@login_required
+@app.route('/upload_avatar', methods=['POST', 'GET'])
+def upload_avatar():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(url_for('user'))
+        file = request.files.get('file', False)
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(url_for('user'))
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save = (os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('uploaded_file', filename=filename))
+    return render_template('upload_avatar.html')
+
+
+@login_required
+@app.route('/uploaded_file')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+# carmen
 @login_required
 @app.route('/carmen')
 def carmen():

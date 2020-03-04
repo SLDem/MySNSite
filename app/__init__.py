@@ -8,6 +8,7 @@ from flask_moment import Moment
 from flask_avatars import Avatars
 import os
 
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -19,9 +20,14 @@ csrf.init_app(app)
 moment = Moment(app)
 avatars = Avatars(app)
 
-app.config['SECRET_KEY'] = 'super secret key'
+UPLOAD_FOLDER = '/app/uploads/'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+CKEDITOR_ENABLE_CSRF = True
+
+app.config['SECRET_KEY'] = 'super_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(basedir, "app.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['APLOAD_FOLDER'] = UPLOAD_FOLDER
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 

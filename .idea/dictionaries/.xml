@@ -2,6 +2,7 @@
   <dictionary name="Ярослав">
     <words>
       <w>asdert</w>
+      <w>ckeditor</w>
       <w>congradulations</w>
       <w>dropdown</w>
       <w>elif</w>
@@ -19,6 +20,7 @@
       <w>sqlalchemy</w>
       <w>tablename</w>
       <w>unfollow</w>
+      <w>unfollowing</w>
     </words>
   </dictionary>
 </component>
