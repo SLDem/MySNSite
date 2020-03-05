@@ -7,12 +7,14 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 
+
 # getting user last seen time( currently not in use and probably wont be cuz mainstream )
 @app.before_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+
 
 # home page
 @login_required
@@ -29,9 +31,10 @@ def home():
             return redirect(url_for('home'))
         posts = Post.query.order_by(Post.timestamp.desc()).all()
         comments = Comment.query.all()
-        return render_template('home.html', title='Home', form=form, username=current_user.username, posts=posts,
-                               comments=comments)
+        return render_template('home.html', title='Home', form=form, username=current_user.username,
+                               posts=posts, comments=comments)
     return redirect(url_for('login'))
+
 
 # posting comments button
 @login_required
@@ -47,6 +50,7 @@ def comment(post_id):
         return redirect(url_for('home'))
     return render_template('post_comment.html', form=form, title='Post Comment')
 
+
 # user page
 @login_required
 @app.route('/user/<username>')
@@ -55,8 +59,10 @@ def user(username):
         user = User.query.filter_by(username=username).first_or_404()
         posts = user.posts.order_by(Post.timestamp.desc())
         comments = Comment.query.all()
-        return render_template('user.html', title='User Page', user=user, username=username, posts=posts, comments=comments)
+        return render_template('user.html', title='User Page', user=user, username=current_user.username,
+                               posts=posts, comments=comments, avatar=avatar)
     return redirect(url_for('login'))
+
 
 # logging users in
 @app.route('/login', methods=['POST', 'GET'])
@@ -73,6 +79,7 @@ def login():
         return redirect(url_for('home'))
     return render_template('login.html', form=form, title='Login')
 
+
 # registering users
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -88,6 +95,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form, title='Register')
 
+
 # logging users out
 @login_required
 @app.route('/logout')
@@ -95,6 +103,7 @@ def logout():
     logout_user()
     flash('You have been logged out!')
     return redirect(url_for('home'))
+
 
 # editing profile
 @login_required
@@ -112,6 +121,7 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', form=form, title='Edit Profile')
 
+
 # following users
 @login_required
 @app.route('/follow/<username>')
@@ -127,6 +137,7 @@ def follow(username):
     db.session.commit()
     flash('You are following {}!'.format(username))
     return redirect(url_for('user', username=username))
+
 
 # unfollowing users
 @login_required
@@ -144,6 +155,7 @@ def unfollow(username):
     flash('You are not following {}!'.format(username))
     return redirect(url_for('user', username=username))
 
+
 # liking of posts
 @login_required
 @app.route('/like/<int:post_id>/<action>', methods=['GET', 'POST'])
@@ -156,6 +168,7 @@ def like_action(post_id, action):
         current_user.dislike(post)
         db.session.commit()
     return redirect(request.referrer)
+
 
 # liking of comments
 @login_required
@@ -200,7 +213,8 @@ def upload_avatar():
 def set_avatar(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-# carmen
+
+# Carmen
 @login_required
 @app.route('/carmen')
 def carmen():

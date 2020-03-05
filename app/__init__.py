@@ -22,7 +22,7 @@ avatars = Avatars(app)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, r'static\uploads')
-ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'jpg'}
 CKEDITOR_ENABLE_CSRF = True
 WTF_CSRF_ENABLED = False
 

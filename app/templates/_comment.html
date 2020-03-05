@@ -3,9 +3,8 @@
         <td width="70x" style="background-color: #E8E8E8; border-right: 1px solid grey;">
             <a href="{{ url_for('user', username=comment.commenter.username) }}">
                 <img height="100px" width="100px" src='static/uploads/{{comment.commenter.username}}.jpg'>
-
-                <!-- <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(comment.commenter.username, size='40') }}" /> -->
             </a>
+            <!-- <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(comment.commenter.username, size='40') }}" /> -->
         </td>
         <td>
             <p><a href="{{ url_for('user', username=comment.commenter.username) }}">
