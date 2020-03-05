@@ -1,8 +1,8 @@
 <table class="table table-bordered">
     <tr style="border: solid; border-color: #1B1C1C; border-width: 2px;">
-        <td width="70x">
+        <td width="70x" style="background-color: #DEE1E1; border-right: 1px solid grey;">
             <a href="{{ url_for('user', username=post.author.username) }}">
-                <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px;" src="{{ avatars.robohash(post.author.username, size='80') }}" />
+                <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(post.author.username, size='80') }}" />
             </a>
         </td>
         <td>

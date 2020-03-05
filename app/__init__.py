@@ -20,14 +20,16 @@ csrf.init_app(app)
 moment = Moment(app)
 avatars = Avatars(app)
 
-UPLOAD_FOLDER = '/app/uploads/'
+UPLOAD_FOLDER = '/mnt/d/work/mysnsite/app/uploads/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 CKEDITOR_ENABLE_CSRF = True
+WTF_CSRF_ENABLED = False
 
+WTF_CSRF_SECRET_KEY = 'a random string'
 app.config['SECRET_KEY'] = 'super_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(basedir, "app.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['APLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
