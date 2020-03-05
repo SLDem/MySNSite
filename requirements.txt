@@ -7,11 +7,11 @@ Flask==1.1.1
 # Flask Packages
 Flask-Avatars==0.2.2
 Flask-Bootstrap==3.3.7.1
-Flask-Login==0.4.1
+Flask-Login==0.5.0
 Flask-Table==0.5.0
 Flask-Migrate==2.5.2
 Flask-SQLAlchemy==2.4.1
-Flask-WTF==0.14.2
+Flask-WTF==0.14.3
 
 
 # Automated tests

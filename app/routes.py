@@ -183,20 +183,21 @@ def upload_avatar():
         if 'file' not in request.files:
             flash('No file part')
             return redirect(url_for('user'))
-        file = request.files.get('file', False)
+        file = request.files['file']
         if file.filename == '':
             flash('No selected file')
             return redirect(url_for('user'))
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save = (os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file', filename=filename))
+            filename = current_user.username + '.' + filename.rsplit('.', 1)[1].lower()
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('set_avatar', filename=filename))
     return render_template('upload_avatar.html')
 
 
 @login_required
-@app.route('/uploaded_file')
-def uploaded_file(filename):
+@app.route('/upload_avatar/<filename>')
+def set_avatar(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 # carmen
