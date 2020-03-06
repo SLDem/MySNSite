@@ -3,7 +3,11 @@
     <table style="margin-top: 1%; ">
         <tr valign="top" style="width: 100%;">
             <td>
-                <img height="400px" width="400px" src="/static/{{user.username}}.jpg">
+                {% if user.avatar_set %}
+                    <img height="400px" width="400px" src="/static/{{user.username}}.jpg">
+                {% else %}
+                    <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(user.username, size='400') }}" />
+                {% endif %}
             </td>
             <td>
                 <h3 style="margin-left: 1%;">{{ user.username }}</h3>

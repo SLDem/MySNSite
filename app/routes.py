@@ -201,13 +201,14 @@ def upload_avatar():
             flash('No selected file')
             return redirect(url_for('user'))
         if file and allowed_file(file.filename):
+            current_user.avatar_set = True
+            db.session.commit()
             filename = secure_filename(file.filename)
             filename = current_user.username + '.' + filename.rsplit('.', 1)[1].lower()
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('Your changes have been saved!')
             return redirect(url_for('home', filename=filename))
     return render_template('upload_avatar.html')
-
 
 
 # Carmen
