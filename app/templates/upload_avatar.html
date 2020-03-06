@@ -1,8 +1,11 @@
 <!doctype html>
 <title>Upload an Avatar</title>
-<h1>Upload an Avatar(.jpg format)</h1>
-<form method=post enctype=multipart/form-data>
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <input type=file name=file>
-    <input type=submit value=Upload>
-</form>
+
+<h2 style="margin-left: 2%; margin-top: 2%;">Upload an Avatar(.jpg format only!!11!1)</h2>
+<div style="margin-left: 2%;">
+    <form method=post enctype=multipart/form-data>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type=file name=file>
+        <input type=submit value=Upload>
+    </form>
+</div>
