@@ -60,7 +60,7 @@ def user(username):
         posts = user.posts.order_by(Post.timestamp.desc())
         comments = Comment.query.all()
         return render_template('user.html', title='User Page', user=user, username=current_user.username,
-                               posts=posts, comments=comments, avatar=avatar)
+                               posts=posts, comments=comments)
     return redirect(url_for('login'))
 
 
@@ -204,14 +204,10 @@ def upload_avatar():
             filename = secure_filename(file.filename)
             filename = current_user.username + '.' + filename.rsplit('.', 1)[1].lower()
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('set_avatar', filename=filename))
+            flash('Your changes have been saved!')
+            return redirect(url_for('home', filename=filename))
     return render_template('upload_avatar.html')
 
-
-@login_required
-@app.route('/upload_avatar/<filename>')
-def set_avatar(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 # Carmen

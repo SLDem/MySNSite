@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_wtf.csrf import CsrfProtect
+from flask_wtf.csrf import CSRFProtect
 from flask_moment import Moment
 from flask_avatars import Avatars
 import os
@@ -12,7 +12,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
-csrf = CsrfProtect()
+csrf = CSRFProtect()
 app = Flask(__name__)
 login = LoginManager(app)
 bootstrap = Bootstrap(app)
@@ -21,7 +21,7 @@ moment = Moment(app)
 avatars = Avatars(app)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_FOLDER = os.path.join(APP_ROOT, r'static\uploads')
+UPLOAD_FOLDER = os.path.join(APP_ROOT, r'static')
 ALLOWED_EXTENSIONS = {'jpg'}
 CKEDITOR_ENABLE_CSRF = True
 WTF_CSRF_ENABLED = False
