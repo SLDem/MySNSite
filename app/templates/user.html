@@ -12,11 +12,11 @@
             <td>
                 <h3 style="margin-left: 1%;">{{ user.username }}</h3>
                 {% if user.about_me %}
-                    <p style="margin-left: 2%; width: 470%;">About me: {{ user.about_me }}</p>
+                    <p style="margin-left: 2%; width: 220%;">About me: {{ user.about_me }}</p>
                 {% endif %}
 
-                <p style="margin-left: 2%;">Followers: {{ user.followers.count() }} Following: {{ user.followed.count() }}</p>
-
+                <p style="margin-left: 2%; width: 220%;">Followers: {{ user.followers.count() }} Following: {{ user.followed.count() }}</p>
+                <hr width="232%">
                 {% if user == current_user %}
                     <p style="margin-left: 2%;"></p>
                 {% elif not current_user.is_following(user) %}
