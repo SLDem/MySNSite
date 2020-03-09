@@ -24,12 +24,25 @@
             <p style="width: 11%;">{{ post.likes.count() }}&#128077</p>
         </td>
     </tr>
+    {% for comment in comments %}
+        {% if comment in post.comments %}
+            {% include "_comment.html" %}
+        {% endif %}
+    {% endfor %}
 </table>
-{% for comment in comments %}
-    {% if comment in post.comments %}
-        {% include "_comment.html" %}
-    {% endif %}
-{% endfor %}
-<p style="margin-bottom: 4%; margin-top: 1%;"><a style="border: solid; border-radius: 4%; border-color: black; border-width: 1px;
- padding: 10px; margin-left: 10px; margin-top: 10%;" href="/comment/{{post.id}}"> Post Comment ▲</a></p>
 
+<div style="margin-bottom: 2%;">
+{% if comment_form %}
+    {{ wtf.quick_form(comment_form, button_map={'submit':'btn btn-outline-dark'}) }}
+{% endif %}
+</div>
+
+<!-- <hr style="color: black; background-color: black; border: none; height: 1px;"> -->
+
+<!--
+<p style="margin-bottom: 4%; margin-top: 1%;"><a style="border: solid; border-radius: 4%; border-color: black; border-width: 1px;
+ padding: 10px; margin-left: 10px; margin-top: 10%;"
+
+                                                 href="/post_comment/{{post.id}}"> Post Comment ▲
+</a></p>
+-->

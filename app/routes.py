@@ -15,30 +15,40 @@ def before_request():
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
-
 # home page
 @login_required
 @app.route('/', methods=['POST', 'GET'])
-@app.route('/home', methods=['POST', 'GET'])
-def home():
+@app.route('/home/<int:post_id>', methods=['POST', 'GET'])
+def home(post_id):
     if current_user.is_authenticated:
         form = PostForm()
+        comment_form = CommentForm()
+
         if form.validate_on_submit():
             post = Post(body=form.post.data, author=current_user)
             db.session.add(post)
             db.session.commit()
             flash('Your post has been posted!')
-            return redirect(url_for('home'))
+            return redirect(url_for('home', post_id=post.id))
+
+        elif comment_form.validate_on_submit():
+            post = Post.query.filter_by(id=post_id).first_or_404()
+            user_comment = Comment(body=comment_form.comment.data, commenter=current_user, post_id=post.id)
+            db.session.add(user_comment)
+            db.session.commit()
+            return redirect(url_for('home', post_id=post_id))
+
         posts = Post.query.order_by(Post.timestamp.desc()).all()
         comments = Comment.query.all()
-        return render_template('home.html', title='Home', form=form, username=current_user.username,
+        return render_template('home.html', title='Home', form=form, comment_form=comment_form, username=current_user.username,
                                posts=posts, comments=comments)
     return redirect(url_for('login'))
 
 
+'''
 # posting comments button
 @login_required
-@app.route('/comment/<int:post_id>', methods=['GET', 'POST'])
+@app.route('/post_comment/<int:post_id>', methods=['GET', 'POST'])
 def comment(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = CommentForm()
@@ -49,6 +59,7 @@ def comment(post_id):
         flash('Comment added!')
         return redirect(url_for('home'))
     return render_template('post_comment.html', form=form, title='Post Comment')
+'''
 
 
 # user page
@@ -184,7 +195,7 @@ def comment_like_action(comment_id, action):
     return redirect(request.referrer)
 
 
-# file uploading (avatar)
+# avatar uploading
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
