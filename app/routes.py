@@ -18,11 +18,10 @@ def before_request():
 # home page
 @login_required
 @app.route('/', methods=['POST', 'GET'])
-@app.route('/home/<int:post_id>', methods=['POST', 'GET'])
-def home(post_id):
+@app.route('/home', methods=['POST', 'GET'])
+def home():
     if current_user.is_authenticated:
         form = PostForm()
-        comment_form = CommentForm()
 
         if form.validate_on_submit():
             post = Post(body=form.post.data, author=current_user)
@@ -31,21 +30,13 @@ def home(post_id):
             flash('Your post has been posted!')
             return redirect(url_for('home', post_id=post.id))
 
-        elif comment_form.validate_on_submit():
-            post = Post.query.filter_by(id=post_id).first_or_404()
-            user_comment = Comment(body=comment_form.comment.data, commenter=current_user, post_id=post.id)
-            db.session.add(user_comment)
-            db.session.commit()
-            return redirect(url_for('home', post_id=post_id))
-
         posts = Post.query.order_by(Post.timestamp.desc()).all()
         comments = Comment.query.all()
-        return render_template('home.html', title='Home', form=form, comment_form=comment_form, username=current_user.username,
+        return render_template('home.html', title='Home', form=form, user=user, username=current_user.username,
                                posts=posts, comments=comments)
     return redirect(url_for('login'))
 
 
-'''
 # posting comments button
 @login_required
 @app.route('/post_comment/<int:post_id>', methods=['GET', 'POST'])
@@ -58,8 +49,7 @@ def comment(post_id):
         db.session.commit()
         flash('Comment added!')
         return redirect(url_for('home'))
-    return render_template('post_comment.html', form=form, title='Post Comment')
-'''
+    return render_template('post_comment.html', form=form, title='Post Comment', post_id=post.id)
 
 
 # user page

@@ -14,13 +14,11 @@
                 {{ comment.commenter.username }}
             </a>commented: </p> <p style="margin-left: 90%; margin-top: -2%;">..at {{comment.timestamp.replace(microsecond=0)}}</p>
             <p style="width: 60%;">{{ comment.body }}</p>
-            <div class="button" style="margin-left: 95%; margin-top: -2%; margin-bottom: -10%;">
             {% if current_user.liked_comment(comment) %}
-                <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='dislike') }}">&#128078</a>
+                <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='dislike') }}"><div class="button" style="margin-left: 95%; margin-top: -2%; margin-bottom: -10%;">&#128078</div></a>
             {% else %}
-                <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='like') }}">&#128077</a>
+                <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='like') }}"><div class="button" style="margin-left: 95%; margin-top: -2%; margin-bottom: -10%;">&#128077</div></a>
             {% endif %}
-            </div>
             <p style="width: 11%;">{{ comment.comment_likes.count() }}&#128077</p>
         </td>
     </tr>

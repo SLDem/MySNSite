@@ -14,13 +14,11 @@
                 {{ post.author.username }}
             </a>said: </p> <p style="margin-left: 90%; margin-top: -2%;">..at {{post.timestamp.replace(microsecond=0)}}</p>
             <p style="width: 60%;" id="post{{ post.id }}">{{ post.body }}</p>
-            <div class="button" style="margin-left: 95%; margin-top: -2%;">
             {% if current_user.liked_post(post) %}
-                <a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}">&#128078</a>
+                <a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}"><div class="button" style="margin-left: 95%; margin-top: -2%;">&#128078</div></a>
             {% else %}
-                <a href="{{ url_for('like_action', post_id=post.id, action='like') }}">&#128077</a>
+                <a href="{{ url_for('like_action', post_id=post.id, action='like') }}"><div class="button" style="margin-left: 95%; margin-top: -2%;">&#128077</div></a>
             {% endif %}
-            </div>
             <p style="width: 11%;">{{ post.likes.count() }}&#128077</p>
         </td>
     </tr>
@@ -31,18 +29,12 @@
     {% endfor %}
 </table>
 
-<div style="margin-bottom: 2%;">
-{% if comment_form %}
-    {{ wtf.quick_form(comment_form, button_map={'submit':'btn btn-outline-dark'}) }}
-{% endif %}
-</div>
+<form action="{{ url_for('comment', post_id=post.id) }}" method="post" style="margin-bottom: 4%; border-left: 2px solid green;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input style="width: 30%;" type=text name=comment>
+    <input type=submit value=Comment!>
+</form>
 
-<!-- <hr style="color: black; background-color: black; border: none; height: 1px;"> -->
 
-<!--
-<p style="margin-bottom: 4%; margin-top: 1%;"><a style="border: solid; border-radius: 4%; border-color: black; border-width: 1px;
- padding: 10px; margin-left: 10px; margin-top: 10%;"
 
-                                                 href="/post_comment/{{post.id}}"> Post Comment ▲
-</a></p>
--->
+
