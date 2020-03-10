@@ -30,26 +30,15 @@ def home():
             flash('Your post has been posted!')
             return redirect(url_for('home', post_id=post.id))
 
-        posts = Post.query.order_by(Post.timestamp.desc()).all()
+        page = request.args.get('page', 1, type=int)
+        posts = Post.query.order_by(Post.timestamp.desc()).paginate(
+            page, 5, False)
+        next_url = url_for('home', page=posts.next_num if posts.has_next else None)
+        prev_url = url_for('home', page=posts.prev_num if posts.has_prev else None)
         comments = Comment.query.all()
         return render_template('home.html', title='Home', form=form, user=user, username=current_user.username,
-                               posts=posts, comments=comments)
+                               posts=posts.items, comments=comments, next_url=next_url, prev_url=prev_url)
     return redirect(url_for('login'))
-
-
-# posting comments button
-@login_required
-@app.route('/post_comment/<int:post_id>', methods=['GET', 'POST'])
-def comment(post_id):
-    post = Post.query.filter_by(id=post_id).first_or_404()
-    form = CommentForm()
-    if form.validate_on_submit():
-        user_comment = Comment(body=form.comment.data, commenter=current_user, post_id=post.id)
-        db.session.add(user_comment)
-        db.session.commit()
-        flash('Comment added!')
-        return redirect(url_for('home'))
-    return render_template('post_comment.html', form=form, title='Post Comment', post_id=post.id)
 
 
 # user page
@@ -58,10 +47,14 @@ def comment(post_id):
 def user(username):
     if current_user.is_authenticated:
         user = User.query.filter_by(username=username).first_or_404()
-        posts = user.posts.order_by(Post.timestamp.desc())
+        page = request.args.get('page', 1, type=int)
         comments = Comment.query.all()
+        posts = user.posts.order_by(Post.timestamp.desc()).paginate(
+            page, 5, False)
+        next_url = url_for('user', username=user.username, page=posts.next_num) if posts.has_next else None
+        prev_url = url_for('user', username=user.username, page=posts.prev_num) if posts.has_prev else None
         return render_template('user.html', title='User Page', user=user, username=current_user.username,
-                               posts=posts, comments=comments)
+                               posts=posts.items, comments=comments, next_url=next_url, prev_url=prev_url)
     return redirect(url_for('login'))
 
 
@@ -155,6 +148,21 @@ def unfollow(username):
     db.session.commit()
     flash('You are not following {}!'.format(username))
     return redirect(url_for('user', username=username))
+
+
+# posting comments button
+@login_required
+@app.route('/post_comment/<int:post_id>', methods=['GET', 'POST'])
+def comment(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    form = CommentForm()
+    if form.validate_on_submit():
+        user_comment = Comment(body=form.comment.data, commenter=current_user, post_id=post.id)
+        db.session.add(user_comment)
+        db.session.commit()
+        flash('Comment added!')
+        return redirect(url_for('home'))
+    return render_template('post_comment.html', form=form, title='Post Comment', post_id=post.id)
 
 
 # liking of posts
