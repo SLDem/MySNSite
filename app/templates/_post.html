@@ -28,12 +28,27 @@
         {% endif %}
     {% endfor %}
 </table>
+<table>
+    <tr>
+        <td>
+            {% if current_user.avatar_set %}
+                <img style="margin-bottom: 20%;" height="60px" width="60px" src="{{ url_for('static', filename=current_user.username + '.jpg') }}">
+            {% else %}
+                <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(current_user.username, size='30') }}" />
+            {% endif %}
+        </td>
+        <td style="margin-right: 2%;">
+            <form action="{{ url_for('comment', post_id=post.id) }}" method="post" style="margin-bottom: 4%; border-left: 2px solid green;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input style="width: 100%; margin-bottom: 1%;" type=text name=comment>
+            <input type=submit value=Comment!>
+            </form>
+        </td>
+    </tr>
+</table>
 
-<form action="{{ url_for('comment', post_id=post.id) }}" method="post" style="margin-bottom: 4%; border-left: 2px solid green;">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <input style="width: 30%;" type=text name=comment>
-    <input type=submit value=Comment!>
-</form>
+
+
 
 
 

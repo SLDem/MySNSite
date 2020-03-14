@@ -1,0 +1,15 @@
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% block app_content %}
+
+<table class="table table-bordered" style="border-left: 5px solid; border-color: #30F153">
+    <tr>
+        <td>{{message.author.username}}</td>
+    </tr>
+    <tr>
+        <td>{{message.body}}</td>
+    </tr>
+
+</table>
+
+{% endblock %}

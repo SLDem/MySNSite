@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block app_content %}
+<table>
+    <tr>
+        {% for user in current_user.followed %}
+            {% include "_user_field.html" %}
+        {% endfor %}
+    </tr>
+</table>
+{% endblock %}

@@ -43,6 +43,16 @@ class User(UserMixin, db.Model):
         foreign_keys='CommentLike.user_id',
         backref='user', lazy='dynamic')
 
+    messages_sent = db.relationship(
+        'Message',
+        foreign_keys='Message.sender_id',
+        backref='author', lazy='dynamic')
+
+    messages_received = db.relationship(
+        'Message',
+        foreign_keys='Message.recipient_id',
+        backref='recipient', lazy='dynamic')
+
     def __repr__(self):
         return "<User>".format(self.username)
 
@@ -55,6 +65,11 @@ class User(UserMixin, db.Model):
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://robohash.org/{}'.format({digest})
+
+    def new_messages(self):
+        last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
+        return Message.query.filter_by(recipient=self).filter(
+            Message.timestamp > last_read_time).count()
 
     def follow(self, user):
         if not self.is_following(user):
@@ -122,6 +137,17 @@ class Comment(db.Model):
     comment_likes = db.relationship('CommentLike', backref='comment', lazy='dynamic')
 
 
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<Message {}>'.format(self.body)
+
+
 class PostLike(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
@@ -134,3 +160,4 @@ class CommentLike(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
+

@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request, send_from_directory
-from app import app, db, ALLOWED_EXTENSIONS, UPLOAD_FOLDER
-from app.models import User, Post, Comment
-from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm, CommentForm
+from app import app, db, ALLOWED_EXTENSIONS
+from app.models import User, Post, Comment, Message
+from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm, CommentForm, MessageForm
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime
 from werkzeug.utils import secure_filename
@@ -14,6 +14,7 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+
 
 # home page
 @login_required
@@ -56,6 +57,50 @@ def user(username):
         return render_template('user.html', title='User Page', user=user, username=current_user.username,
                                posts=posts.items, comments=comments, next_url=next_url, prev_url=prev_url)
     return redirect(url_for('login'))
+
+
+# user private messages
+@login_required
+@app.route('/messages')
+def messages():
+    return render_template('messages.html', title='Messages')
+
+
+@login_required
+@app.route('/send_message/<recipient>', methods=['POST', 'GET'])
+def send_message(recipient):
+    user = User.query.filter_by(username=recipient).first_or_404()
+    form = MessageForm()
+    if form.validate_on_submit():
+        message = Message(body=form.message.data, author=current_user, recipient=user)
+        db.session.add(message)
+        db.session.commit()
+        flash('Message sent!')
+        return redirect(url_for('private_messages', recipient=recipient))
+    return render_template('send_message.html', title='Send Message', form=form, recipient=recipient)
+
+
+@login_required
+@app.route('/private_messages/<recipient>', methods=['POST', 'GET'])
+def private_messages(recipient):
+    # page = request.args.get('page', 1, type=int)
+    messages = current_user.messages_received.order_by(Message.timestamp.desc())  # .paginate(page, 30, False)
+    # next_url = url_for('private_messages', page=messages.next_num) if messages.has_next else None
+    # prev_url = url_for('private_messages', page=messages.prev_num) if messages.has_prev else None
+
+    user = User.query.filter_by(username=recipient).first_or_404()
+
+    form = MessageForm()
+    if form.validate_on_submit():
+        message = Message(body=form.message.data, author=current_user, recipient=user)
+        db.session.add(message)
+        db.session.commit()
+        flash('Message sent!')
+        return redirect(url_for('private_messages', recipient=user))
+
+    return render_template('private_messages.html', title='Private Messages', recipient=recipient, form=form,
+                           messages=messages)  # ,
+    # next_url=next_url, prev_url=prev_url)
 
 
 # logging users in
