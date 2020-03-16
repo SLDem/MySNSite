@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request, send_from_directory
+from flask import render_template, flash, redirect, url_for, request
 from app import app, db, ALLOWED_EXTENSIONS
 from app.models import User, Post, Comment, Message
 from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm, CommentForm, MessageForm
@@ -59,7 +59,7 @@ def user(username):
     return redirect(url_for('login'))
 
 
-# private user messages
+# private messages
 @login_required
 @app.route('/messages')
 def messages():
@@ -83,16 +83,15 @@ def send_message(recipient):
 @login_required
 @app.route('/private_messages/<recipient>', methods=['POST', 'GET'])
 def private_messages(recipient):
-
     recipient = User.query.filter_by(username=recipient).first_or_404()
     page = request.args.get('page', 1, type=int)
 
     received_messages = current_user.messages_received.filter_by(author=recipient)
-    sent_messages = current_user.messages_sent.filter_by(author=current_user)
-    all_messages = received_messages.union(sent_messages).order_by(Message.timestamp).paginate(page, 30, False)
+    sent_messages = current_user.messages_sent.filter_by(recipient=recipient)
+    messages = received_messages.union(sent_messages).order_by(Message.timestamp).paginate(page, 150, False)
 
-    next_url = url_for('private_messages', page=all_messages.next_num) if all_messages.has_next else None
-    prev_url = url_for('private_messages', page=all_messages.prev_num) if all_messages.has_prev else None
+    next_url = url_for('private_messages', page=messages.next_num) if messages.has_next else None
+    prev_url = url_for('private_messages', page=messages.prev_num) if messages.has_prev else None
 
     form = MessageForm()
     if form.validate_on_submit():
@@ -104,7 +103,7 @@ def private_messages(recipient):
         return redirect(url_for('private_messages', recipient=recipient))
 
     return render_template('private_messages.html', title='Private Messages', recipient=recipient, form=form,
-                           messages=all_messages.items, next_url=next_url, prev_url=prev_url)
+                           messages=messages.items, next_url=next_url, prev_url=prev_url)
 
 
 # logging users in
@@ -126,8 +125,6 @@ def login():
 # registering users
 @app.route('/register', methods=['POST', 'GET'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)

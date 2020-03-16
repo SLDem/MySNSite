@@ -5,7 +5,7 @@
     {% for message in messages %}
         {% include "_message.html" %}
     {% endfor %}
-
+    {{recipient}}
     <div class="row">
         <div class="col-md-4">
             {{ wtf.quick_form(form, button_map={'submit':'btn btn-outline-dark'}) }}

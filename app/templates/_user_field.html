@@ -3,13 +3,13 @@
         <td width="70x" style="background-color: #E8E8E8; border-right: 1px solid grey;">
             <a href="{{ url_for('user', username=user.username) }}">
                 {% if user.avatar_set %}
-                    <img height="40px" width="40px" src="{{ url_for('static', filename=user.username + '.jpg') }}">
+                    <img height="45px" width="45px" src="{{ url_for('static', filename=user.username + '.jpg') }}">
                 {% else %}
-                    <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(comment.commenter.username, size='40') }}" />
+                    <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(user.username, size='45') }}" />
                 {% endif %}
             </a>
         </td>
-        <td>
+        <td style="width: 10%;">
             <a href="{{ url_for('user', username=user.username) }}">{{ user.username }}</a> <!-- url for user messages (to be) -->
         </td>
         <td>
