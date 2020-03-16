@@ -76,7 +76,7 @@ def send_message(recipient):
         db.session.add(message)
         db.session.commit()
         flash('Message sent!')
-        return redirect(url_for('private_messages', recipient=recipient))
+        return redirect(url_for('private_messages', recipient=recipient.username))
     return render_template('send_message.html', title='Send Message', form=form, recipient=recipient)
 
 
@@ -100,7 +100,7 @@ def private_messages(recipient):
         db.session.add(message)
         db.session.commit()
         flash('Message sent!')
-        return redirect(url_for('private_messages', recipient=recipient))
+        return redirect(url_for('private_messages', recipient=recipient.username))
 
     return render_template('private_messages.html', title='Private Messages', recipient=recipient, form=form,
                            messages=messages.items, next_url=next_url, prev_url=prev_url)
