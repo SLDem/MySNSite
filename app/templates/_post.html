@@ -1,5 +1,5 @@
 <table class="table table-bordered">
-    <tr style="border: solid; border-color: #1B1C1C; border-width: 2px;">
+    <tr style="border: solid; border-color: #1B1C1C; border-width: 4px;">
         <td width="70x" style="background-color: #DEE1E1; border-right: 1px solid grey;">
             <a href="{{ url_for('user', username=post.author.username) }}">
                 {% if post.author.avatar_set %}
@@ -38,7 +38,7 @@
             {% endif %}
         </td>
         <td style="margin-right: 2%;">
-            <form action="{{ url_for('comment', post_id=post.id) }}" method="post" style="margin-bottom: 4%; border-left: 2px solid green;">
+            <form action="{{ url_for('comment', post_id=post.id) }}" method="post" style="margin-bottom: 4%; border-left: 2px solid grey;">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <input style="width: 100%; margin-bottom: 1%;" type=text name=comment>
             <input type=submit value=Comment!>
