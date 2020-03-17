@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block app_content %}
     <table style="margin-top: 1%; ">
         <tr valign="top" style="width: 100%;">
             <td>
                 {% if user.avatar_set %}
-                    <img height="400px" width="400px" src="/static/{{user.username}}.jpg">
+                    <img style="border: 1px solid #000; border-radius: 10%;" height="400px" width="400px" src="/static/{{user.username}}.jpg">
                 {% else %}
                     <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(user.username, size='400') }}" />
                 {% endif %}
@@ -12,7 +13,9 @@
             <td>
                 <h3 style="margin-left: 1%;">{{ user.username }}</h3>
                 {% if user.about_me %}
+
                     <p style="margin-left: 2%; width: 220%;">About me: {{ user.about_me }}</p>
+
                 {% endif %}
 
                 <p style="margin-left: 2%; width: 220%;">Followers: {{ user.followers.count() }} Following: {{ user.followed.count() }}</p>
@@ -27,7 +30,7 @@
 
                 {% if user != current_user %}
                 <p>
-                    <a href="{{ url_for('send_message',
+                    <a href="{{ url_for('private_messages',
                                         recipient=user.username) }}">
                         {{ 'Send private message' }}
                     </a>
@@ -36,6 +39,12 @@
             </td>
         </tr>
     </table>
+
+<div style="margin-top: 2%;">
+    {% if form %}
+        {{ wtf.quick_form(form, button_map={'submit':'btn btn-outline-dark'}) }}
+    {% endif %}
+</div>
 
 <div style="margin-top: 1%;">
     {% for post in posts %}

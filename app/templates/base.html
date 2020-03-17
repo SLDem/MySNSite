@@ -7,8 +7,41 @@
         {% block title %}{{title}}{% endblock %}
     </title>
     </head>
-    <body>
+    <body>                                                <!-- round -->
     <style type="text/css">
+
+        #container{width:100%; height: 190px;}
+        #left{float: left; width: 160px; margin-left: 2%; margin-top: 0.5%;}
+        #center{margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 1%;}
+        #right{float: right; width: 10%; margin-right: 70px; margin-top: -100px;}
+
+        #container_pc{width:100%;}
+        #left_pc{float: left; width: 20px; margin-left: 2%; margin-top: 2.7%;}
+        #right_pc{margin: 0 auto; width: 80%; margin-top: 1%;}
+
+        #container_c{width:100%; height: 190px;}
+        #left_c{float: left; width: 30px; margin-left: 2%; margin-top: 0.5%;}
+        #center_c{margin: 0 auto; width: 85%; margin-top: 1%;}
+        #right_c{float: right; width: 10%; margin-right: 70px; margin-top: -100px;}
+
+        .post{
+        border: 10px solid transparent;
+        padding: 15px;
+        border-image: url('/static/border6.png') 15 round;
+        margin-bottom: 2%;
+        }
+
+        .post_with_background{
+        border: 10px solid transparent;
+        padding: 15px;
+        border-image: url('/static/border6.png') 30 round;
+        }
+
+        .comment_with_background{
+        border: 10px solid transparent;
+        padding: 15px;
+        border-image: url('/static/border6.png') 30 stretch;
+        }
 
         .search_button {
         border-style: solid;
@@ -16,14 +49,6 @@
         border-radius: 10%;
         color: grey !important;
         font-size: 22px;
-        }
-
-        .avatar {
-        border-style: solid;
-        border-color: black;
-        margin-left: 0%;
-        margin-right: 83%;
-        border-radius: 10%;
         }
 
 
@@ -48,16 +73,13 @@
         .button:hover {background-color: white}
 
         .button:active {
-
         background-color: #C4C8CE;
         box-shadow: 0 5px #666;
         transform: translateY(4px);
         }
 
-
     </style>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="#">Nabvar</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

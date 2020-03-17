@@ -44,9 +44,18 @@ def home():
 
 # user page
 @login_required
-@app.route('/user/<username>')
+@app.route('/user/<username>', methods=['POST', 'GET'])
 def user(username):
     if current_user.is_authenticated:
+        form = PostForm()
+
+        if form.validate_on_submit():
+            post = Post(body=form.post.data, author=current_user)
+            db.session.add(post)
+            db.session.commit()
+            flash('Your post has been posted!')
+            return redirect(url_for('user', username=current_user.username))
+
         user = User.query.filter_by(username=username).first_or_404()
         page = request.args.get('page', 1, type=int)
         comments = Comment.query.all()
@@ -55,7 +64,7 @@ def user(username):
         next_url = url_for('user', username=user.username, page=posts.next_num) if posts.has_next else None
         prev_url = url_for('user', username=user.username, page=posts.prev_num) if posts.has_prev else None
         return render_template('user.html', title='User Page', user=user, username=current_user.username,
-                               posts=posts.items, comments=comments, next_url=next_url, prev_url=prev_url)
+                               posts=posts.items, comments=comments, next_url=next_url, prev_url=prev_url, form=form)
     return redirect(url_for('login'))
 
 
@@ -66,6 +75,7 @@ def messages():
     return render_template('messages.html', title='Messages')
 
 
+'''
 @login_required
 @app.route('/send_message/<recipient>', methods=['POST', 'GET'])
 def send_message(recipient):
@@ -78,6 +88,7 @@ def send_message(recipient):
         flash('Message sent!')
         return redirect(url_for('private_messages', recipient=recipient.username))
     return render_template('send_message.html', title='Send Message', form=form, recipient=recipient)
+'''
 
 
 @login_required

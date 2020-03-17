@@ -1,25 +1,31 @@
-<table class="table table-bordered" style="border-left: 5px solid; border-color: grey">
-    <tr>
-        <td width="70x" style="background-color: #E8E8E8; border-right: 1px solid grey;">
-            <a href="{{ url_for('user', username=comment.commenter.username) }}">
-                {% if comment.commenter.avatar_set %}
-                    <img height="40px" width="40px" src="{{ url_for('static', filename=comment.commenter.username + '.jpg') }}">
-                {% else %}
-                    <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(comment.commenter.username, size='40') }}" />
-                {% endif %}
-            </a>
-        </td>
-        <td>
-            <p><a href="{{ url_for('user', username=comment.commenter.username) }}">
-                {{ comment.commenter.username }}
-            </a>commented: </p> <p style="margin-left: 90%; margin-top: -2%;">..at {{comment.timestamp.replace(microsecond=0)}}</p>
-            <p style="width: 60%;">{{ comment.body }}</p>
-            {% if current_user.liked_comment(comment) %}
-                <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='dislike') }}"><div class="button" style="margin-left: 95%; margin-top: -2%; margin-bottom: -10%;">&#128078</div></a>
+<div class="comment_with_background">
+    <!-- Avatar -->
+    <div id="left_c">
+        <a href="{{ url_for('user', username=comment.commenter.username) }}">
+            {% if comment.commenter.avatar_set %}
+                <img style="border: 1px solid #000; border-radius: 10%;" height="40px" width="40px" src="{{ url_for('static', filename=comment.commenter.username + '.jpg') }}">
             {% else %}
-                <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='like') }}"><div class="button" style="margin-left: 95%; margin-top: -2%; margin-bottom: -10%;">&#128077</div></a>
+                <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(comment.commenter.username, size='40') }}" />
             {% endif %}
-            <p style="width: 11%;">{{ comment.comment_likes.count() }}&#128077</p>
-        </td>
-    </tr>
-</table>
+        </a>
+    </div>
+
+    <!-- Comment body -->
+    <div id="center_c">
+        <p><a href="{{ url_for('user', username=comment.commenter.username) }}">
+            {{ comment.commenter.username }}
+        </a>commented: </p>
+        <p style="width: 60%;">{{ comment.body }}</p>
+        <p>{{ comment.comment_likes.count() }}&#128077</p>
+    </div>
+
+    <!-- Timestamp and like button -->
+    <div id="right_c">
+        <p>..at {{comment.timestamp.replace(microsecond=0)}}</p>
+        {% if current_user.liked_comment(comment) %}
+            <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='dislike') }}"><div class="button">&#128078</div></a>
+        {% else %}
+            <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='like') }}"><div class="button">&#128077</div></a>
+        {% endif %}
+    </div>
+</div>

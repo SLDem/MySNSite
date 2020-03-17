@@ -1,53 +1,73 @@
-<table class="table table-bordered">
-    <tr style="border: solid; border-color: #1B1C1C; border-width: 4px;">
-        <td width="70x" style="background-color: #DEE1E1; border-right: 1px solid grey;">
-            <a href="{{ url_for('user', username=post.author.username) }}">
-                {% if post.author.avatar_set %}
-                    <img height="150px" width="150px" src="{{ url_for('static', filename=post.author.username + '.jpg') }}">
+<div class="post_with_background" style="margin-bottom: 50px;">
+    <div class="post">
+        <div id="container" style="margin-bottom: 2%;">
+
+            <!-- Avatar and username -->
+            <div id="left">
+                <div style="position: absolute">
+                    <a href="{{ url_for('user', username=post.author.username) }}">
+                        {% if post.author.avatar_set %}
+                            <img style="border: 1px solid #000; border-radius: 10%;" height="150px" width="150px" src="{{ url_for('static', filename=post.author.username + '.jpg') }}">
+                        {% else %}
+                            <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(post.author.username, size='150') }}" />
+                        {% endif %}
+                    </a>
+                </div>
+                <div style="position: relative; margin-top: 160px;">
+                    <a href="{{ url_for('user', username=post.author.username) }}">
+                        {{ post.author.username }}
+                    </a>
+                </div>
+            </div>
+
+            <!-- Post body -->
+            <div id="center">
+                <p>said: </p>
+                <p id="post{{ post.id }}">{{ post.body }}</p>
+            </div>
+
+            <!-- Timestamp and like button -->
+            <div id="right">
+                <p>..at {{post.timestamp.replace(microsecond=0)}}</p>
+                {% if current_user.liked_post(post) %}
+                    <a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}"><div class="button">&#128078</div></a>
                 {% else %}
-                    <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(post.author.username, size='150') }}" />
+                    <a href="{{ url_for('like_action', post_id=post.id, action='like') }}"><div class="button">&#128077</div></a>
                 {% endif %}
-            </a>
-        </td>
-        <td>
-            <p><a href="{{ url_for('user', username=post.author.username) }}">
-                {{ post.author.username }}
-            </a>said: </p> <p style="margin-left: 90%; margin-top: -2%;">..at {{post.timestamp.replace(microsecond=0)}}</p>
-            <p style="width: 60%;" id="post{{ post.id }}">{{ post.body }}</p>
-            {% if current_user.liked_post(post) %}
-                <a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}"><div class="button" style="margin-left: 95%; margin-top: -2%;">&#128078</div></a>
-            {% else %}
-                <a href="{{ url_for('like_action', post_id=post.id, action='like') }}"><div class="button" style="margin-left: 95%; margin-top: -2%;">&#128077</div></a>
-            {% endif %}
-            <p style="width: 11%;">{{ post.likes.count() }}&#128077</p>
-        </td>
-    </tr>
+                <p style="width: 11%; margin-top: 20px;">{{ post.likes.count() }}&#128077</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Comments -->
     {% for comment in comments %}
         {% if comment in post.comments %}
             {% include "_comment.html" %}
         {% endif %}
     {% endfor %}
-</table>
-<table>
-    <tr>
-        <td>
+
+
+    <!-- New comment avatar and form-->
+    <div id="container_pc">
+        <div id="left_pc">
             {% if current_user.avatar_set %}
-                <img style="margin-bottom: 20%;" height="60px" width="60px" src="{{ url_for('static', filename=current_user.username + '.jpg') }}">
+                <img style="margin-top: -30%; border: 1px solid #000; border-radius: 10%;" height="70px" width="70px" src="{{ url_for('static', filename=current_user.username + '.jpg') }}">
             {% else %}
-                <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(current_user.username, size='30') }}" />
+                <img style=" margin-bottom: 20%; border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(current_user.username, size='70') }}" />
             {% endif %}
-        </td>
-        <td style="margin-right: 2%;">
-            <form action="{{ url_for('comment', post_id=post.id) }}" method="post" style="margin-bottom: 4%; border-left: 2px solid grey;">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <input style="width: 100%; margin-bottom: 1%;" type=text name=comment>
-            <input type=submit value=Comment!>
-            </form>
-        </td>
-    </tr>
-</table>
-
-
+        </div>
+        <div class="comment_with_background">
+            <div id="right_pc">
+                <form action="{{ url_for('comment', post_id=post.id) }}" method="post" style="margin-bottom: 4%;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input style="width: 100%; margin-bottom: 1%;" type=text name=comment>
+                <input type=submit value=Comment!>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

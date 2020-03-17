@@ -2,6 +2,7 @@
   <dictionary name="Ярослав">
     <words>
       <w>asdert</w>
+      <w>borderimg</w>
       <w>ckeditor</w>
       <w>commentid</w>
       <w>congradulations</w>
@@ -18,6 +19,7 @@
       <w>navbar</w>
       <w>postcomment</w>
       <w>pytest</w>
+      <w>rgba</w>
       <w>robohash</w>
       <w>sqlalchemy</w>
       <w>tablename</w>
