@@ -10,34 +10,49 @@
     <body>                                                <!-- round -->
     <style type="text/css">
 
-        #container{width:100%; height: 190px;}
-        #left{float: left; width: 160px; margin-left: 2%; margin-top: 0.5%;}
+
+        #container{width:100%; height: 190px; margin-bottom: 2%;}
+        #left{float: left; width: 160px; margin-left: 2%; margin-top: 0.1%;}
         #center{margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 1%;}
-        #right{float: right; width: 10%; margin-right: 70px; margin-top: -100px;}
+        #right{float: right; width: 100px; margin-right: 70px; margin-top: -100px;}
 
-        #container_pc{width:100%;}
-        #left_pc{float: left; width: 20px; margin-left: 2%; margin-top: 2.7%;}
-        #right_pc{margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 100px; margin-right: 50px;}
+        #container_post_comment{width:100%;}
+        #left_post_comment{float: left; width: 20px; margin-left: 2%; margin-top: 2.7%;}
+        #right_post_comment{margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 100px; margin-right: 50px;}
 
-        #container_c{width:100%; height: 190px;}
-        #left_c{float: left; width: 30px; margin-left: 2%; margin-top: 22px;}
-        #center_c{margin: 0 auto; width: 70%; margin-top: 1%; margin-left: 90px;}
-        #right_c{float: right; width: 100px; margin-right: 70px; margin-top: -150px;}
+        #container_comment{width:100%; height: 190px;}
+        #left_comment{float: left; width: 30px; margin-left: 2%; margin-top: 22px;}
+        #center_comment{margin: 0 auto; width: 70%; margin-top: 1%; margin-left: 90px;}
+        #right_comment{float: right; width: 100px; margin-right: 70px; margin-top: -150px;}
 
-        .post{
+        .avatar {
+        margin-top: -30%;
+        border: 1px solid #000;
+        border-radius: 10%;
+        }
+
+        .roboavatar {
+        border-style: solid;
+        border-radius: 10%;
+        border-color: black;
+        border-width: 1px;
+        background-color: white;
+        }
+
+        .post {
         border: 10px solid transparent;
         padding: 15px;
         border-image: url('/static/border6.png') 15 round;
         margin-bottom: 2%;
         }
 
-        .post_with_background{
+        .post_with_background {
         border: 10px solid transparent;
         padding: 15px;
         border-image: url('/static/border6.png') 30 round;
         }
 
-        .comment_with_background{
+        .comment_with_background {
         border: 10px solid transparent;
         padding: 15px;
         border-image: url('/static/border6.png') 30 stretch;
