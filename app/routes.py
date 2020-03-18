@@ -60,7 +60,7 @@ def user(username):
         page = request.args.get('page', 1, type=int)
         comments = Comment.query.all()
         posts = user.posts.order_by(Post.timestamp.desc()).paginate(
-            page, 5, False)
+            page, 8, False)
         next_url = url_for('user', username=user.username, page=posts.next_num) if posts.has_next else None
         prev_url = url_for('user', username=user.username, page=posts.prev_num) if posts.has_prev else None
         return render_template('user.html', title='User Page', user=user, username=current_user.username,
@@ -75,22 +75,6 @@ def messages():
     return render_template('messages.html', title='Messages')
 
 
-'''
-@login_required
-@app.route('/send_message/<recipient>', methods=['POST', 'GET'])
-def send_message(recipient):
-    recipient = User.query.filter_by(username=recipient).first_or_404()
-    form = MessageForm()
-    if form.validate_on_submit():
-        message = Message(body=form.message.data, author=current_user, recipient=recipient)
-        db.session.add(message)
-        db.session.commit()
-        flash('Message sent!')
-        return redirect(url_for('private_messages', recipient=recipient.username))
-    return render_template('send_message.html', title='Send Message', form=form, recipient=recipient)
-'''
-
-
 @login_required
 @app.route('/private_messages/<recipient>', methods=['POST', 'GET'])
 def private_messages(recipient):
@@ -99,10 +83,10 @@ def private_messages(recipient):
 
     received_messages = current_user.messages_received.filter_by(author=recipient)
     sent_messages = current_user.messages_sent.filter_by(recipient=recipient)
-    messages = received_messages.union(sent_messages).order_by(Message.timestamp).paginate(page, 150, False)
+    messages = received_messages.union(sent_messages).order_by(Message.timestamp).paginate(page, 15, False)
 
-    next_url = url_for('private_messages', page=messages.next_num) if messages.has_next else None
-    prev_url = url_for('private_messages', page=messages.prev_num) if messages.has_prev else None
+    next_url = url_for('private_messages', recipient=recipient.username, page=messages.next_num) if messages.has_next else None
+    prev_url = url_for('private_messages', recipient=recipient.username, page=messages.prev_num) if messages.has_prev else None
 
     form = MessageForm()
     if form.validate_on_submit():

@@ -51,6 +51,13 @@
         {% include "_post.html" %}
     {% endfor %}
     <nav aria-label="...">
+        <ul>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    <span aria-hidden="true">&rarr;</span> Older posts
+                </a>
+            </li>
+        </ul>
         <ul class="pager">
             <li class="previous{% if not prev_url %} disabled{% endif %}">
                 <a href="{{ prev_url or '#' }}">
@@ -58,14 +65,6 @@
                 </a>
             </li>
         </ul>
-        <ul>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    Older posts <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-
     </nav>
 </div>
 {% endblock %}
