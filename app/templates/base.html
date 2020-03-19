@@ -7,7 +7,7 @@
         {% block title %}{{title}}{% endblock %}
     </title>
     </head>
-    <body>                                                <!-- round -->
+    <body>
     <style type="text/css">
 
 
@@ -58,15 +58,6 @@
         border-image: url('/static/border6.png') 30 stretch;
         }
 
-        .search_button {
-        border-style: solid;
-        border-width: 0.7px;
-        border-radius: 10%;
-        color: grey !important;
-        font-size: 22px;
-        }
-
-
         .button {
         outline: none !important;
         display: inline-block;
@@ -115,11 +106,12 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/edit_profile">Edit Profile</a>
-                  <a class="dropdown-item" href="#">Another action</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/carmen">Something else here</a>
                 </div>
               </li>
+            </ul>
+            <ul class="nav navbar-nav ml-auto">
               {% if current_user.is_anonymous %}
               <li class="nav-item">
                 <a class="nav-link" href="/login">Login</a>
@@ -130,10 +122,6 @@
               </li>
               {% endif %}
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="search_button" type="submit">Search</button>
-            </form>
           </div>
         </nav>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

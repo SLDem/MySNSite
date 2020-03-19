@@ -35,6 +35,5 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-POSTS_PER_PAGE = 5
 
 from app import routes, models
