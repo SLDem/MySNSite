@@ -1,9 +1,9 @@
 <div class="post_with_background" style="margin-bottom: 50px;">
     <div class="post">
-        <div id="container">
+        <div id="container_post">
 
             <!-- Avatar and username -->
-            <div id="left">
+            <div id="left_post">
                 <div style="position: absolute">
                     <a href="{{ url_for('user', username=post.author.username) }}">
                         {% if post.author.avatar_set %}
@@ -21,13 +21,13 @@
             </div>
 
             <!-- Post body -->
-            <div id="center">
+            <div id="center_post">
                 <p>said: </p>
                 <p id="post{{ post.id }}">{{ post.body }}</p>
             </div>
 
             <!-- Timestamp and like button -->
-            <div id="right">
+            <div id="right_post">
                 <p>..at {{post.timestamp.replace(microsecond=0)}}</p>
                 {% if current_user.liked_post(post) %}
                     <a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}"><div class="button">&#128078</div></a>
