@@ -28,7 +28,7 @@
 
             <!-- Timestamp and like button -->
             <div id="right_post">
-                <p>..at {{post.timestamp.replace(microsecond=0)}}</p>
+                <p><b>..at</b> {{post.timestamp.replace(microsecond=0)}}</p>
                 {% if current_user.liked_post(post) %}
                     <a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}"><div class="button">&#128078</div></a>
                 {% else %}

@@ -22,7 +22,7 @@
 
         <!-- Timestamp and like button -->
         <div id="right_comment">
-            <p>..at {{comment.timestamp.replace(microsecond=0)}}</p>
+            <p><b>..at</b> {{comment.timestamp.replace(microsecond=0)}}</p>
             {% if current_user.liked_comment(comment) %}
                 <a href="{{ url_for('comment_like_action', comment_id=comment.id, action='dislike') }}"><div class="button">&#128078</div></a>
             {% else %}
