@@ -4,7 +4,7 @@
 
             <!-- Avatar and username -->
             <div id="left_post">
-                <div style="position: absolute">
+                <div style="position: absolute; margin-left: -5px;">
                     <a href="{{ url_for('user', username=post.author.username) }}">
                         {% if post.author.avatar_set %}
                             <img class="avatar" height="150px" width="150px" src="{{ url_for('static', filename=post.author.username + '.jpg') }}">
@@ -22,7 +22,7 @@
 
             <!-- Post body -->
             <div id="center_post">
-                <p>said: </p>
+                <p><b>said: </b></p>
                 <p id="post{{ post.id }}">{{ post.body }}</p>
             </div>
 

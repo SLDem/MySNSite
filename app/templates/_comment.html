@@ -15,7 +15,7 @@
         <div id="center_comment">
             <p><a href="{{ url_for('user', username=comment.commenter.username) }}">
                 {{ comment.commenter.username }}
-            </a>commented: </p>
+            </a><b>commented: </b></p>
             <p>{{ comment.body }}</p>
             <p>{{ comment.comment_likes.count() }}&#128077</p>
         </div>
