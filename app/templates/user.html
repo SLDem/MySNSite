@@ -5,9 +5,9 @@
         <tr valign="top" style="width: 100%;">
             <td>
                 {% if user.avatar_set %}
-                    <img style="border: 1px solid #000; border-radius: 10%;" height="400px" width="400px" src="/static/{{user.username}}.jpg">
+                    <img class="avatar" height="400px" width="400px" src="/static/{{user.username}}.jpg">
                 {% else %}
-                    <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(user.username, size='400') }}" />
+                    <img class="roboavatar" src="{{ avatars.robohash(user.username, size='400') }}" />
                 {% endif %}
             </td>
             <td>
@@ -30,7 +30,7 @@
 
                 {% if user != current_user %}
                 <p>
-                    <a href="{{ url_for('private_messages',
+                    <a style="margin-left: 2%" href="{{ url_for('private_messages',
                                         recipient=user.username) }}">
                         {{ 'Send private message' }}
                     </a>

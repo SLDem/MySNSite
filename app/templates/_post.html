@@ -7,9 +7,9 @@
                 <div style="position: absolute">
                     <a href="{{ url_for('user', username=post.author.username) }}">
                         {% if post.author.avatar_set %}
-                            <img style="border: 1px solid #000; border-radius: 10%;" height="150px" width="150px" src="{{ url_for('static', filename=post.author.username + '.jpg') }}">
+                            <img class="avatar" height="150px" width="150px" src="{{ url_for('static', filename=post.author.username + '.jpg') }}">
                         {% else %}
-                            <img style="border-style: solid; border-radius: 10%; border-color: black; border-width: 1px; background-color: white;" src="{{ avatars.robohash(post.author.username, size='150') }}" />
+                            <img class="roboavatar" src="{{ avatars.robohash(post.author.username, size='150') }}" />
                         {% endif %}
                     </a>
                 </div>

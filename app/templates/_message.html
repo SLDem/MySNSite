@@ -12,7 +12,7 @@
                 {% endif %}
             </a>
         </td>
-        <td width="10%">{{message.author.username}} {{message.timestamp.replace(microsecond=0)}}</td>
+        <td width="10%"><a href="{{url_for('user', username=message.author.username) }}">{{message.author.username}}</a> {{message.timestamp.replace(microsecond=0)}}</td>
         <td>{{message.body}}</td>
     </tr>
 
