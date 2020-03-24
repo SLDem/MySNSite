@@ -3,17 +3,8 @@ from app import app, db, ALLOWED_EXTENSIONS
 from app.models import User, Post, Comment, Message
 from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm, CommentForm, MessageForm
 from flask_login import current_user, login_user, logout_user, login_required
-from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
-
-
-# getting user last seen time( currently not in use and probably wont be cuz mainstream )
-@app.before_request
-def before_request():
-    if current_user.is_authenticated:
-        current_user.last_seen = datetime.utcnow()
-        db.session.commit()
 
 
 # home page
@@ -63,7 +54,7 @@ def user(username):
             page, 8, False)
         next_url = url_for('user', username=user.username, page=posts.next_num) if posts.has_next else None
         prev_url = url_for('user', username=user.username, page=posts.prev_num) if posts.has_prev else None
-        return render_template('user.html', title='User Page', user=user, username=current_user.username,
+        return render_template('user.html', title=user.username, user=user, username=current_user.username,
                                posts=posts.items, comments=comments, next_url=next_url, prev_url=prev_url, form=form)
     return redirect(url_for('login'))
 
@@ -101,7 +92,7 @@ def private_messages(recipient):
                            messages=messages.items, next_url=next_url, prev_url=prev_url)
 
 
-# logging users in
+# logging functionality
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if current_user.is_authenticated:
@@ -117,7 +108,6 @@ def login():
     return render_template('login.html', form=form, title='Login')
 
 
-# registering users
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     form = RegisterForm()
@@ -131,7 +121,6 @@ def register():
     return render_template('register.html', form=form, title='Register')
 
 
-# logging users out
 @login_required
 @app.route('/logout')
 def logout():
@@ -155,6 +144,33 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', form=form, title='Edit Profile')
+
+
+# avatar uploading
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@login_required
+@app.route('/upload_avatar', methods=['POST', 'GET'])
+def upload_avatar():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(url_for('user'))
+        file = request.files['file']
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(url_for('user'))
+        if file and allowed_file(file.filename):
+            current_user.avatar_set = True
+            db.session.commit()
+            filename = secure_filename(file.filename)
+            filename = current_user.username + '.' + filename.rsplit('.', 1)[1].lower()
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            flash('Your changes have been saved!')
+            return redirect(url_for('home', filename=filename))
+    return render_template('upload_avatar.html')
 
 
 # following users
@@ -232,33 +248,6 @@ def comment_like_action(comment_id, action):
         current_user.dislike_comment(comment)
         db.session.commit()
     return redirect(request.referrer)
-
-
-# avatar uploading
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@login_required
-@app.route('/upload_avatar', methods=['POST', 'GET'])
-def upload_avatar():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(url_for('user'))
-        file = request.files['file']
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(url_for('user'))
-        if file and allowed_file(file.filename):
-            current_user.avatar_set = True
-            db.session.commit()
-            filename = secure_filename(file.filename)
-            filename = current_user.username + '.' + filename.rsplit('.', 1)[1].lower()
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            flash('Your changes have been saved!')
-            return redirect(url_for('home', filename=filename))
-    return render_template('upload_avatar.html')
 
 
 # Carmen
