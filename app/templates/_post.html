@@ -30,11 +30,16 @@
             <div id="right_post">
                 <p><b>..at</b> {{post.timestamp.replace(microsecond=0)}}</p>
                 {% if current_user.liked_post(post) %}
-                    <a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}"><div class="button">&#128078</div></a>
+                    <div id="like_container">
+                        <div id="like_button"><a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}"><div class="button">&#128078</div></a></div>
+                        <div id="like_count"><p>{{ post.likes.count() }}</p></div>
+                    </div>
                 {% else %}
-                    <a href="{{ url_for('like_action', post_id=post.id, action='like') }}"><div class="button">&#128077</div></a>
+                    <div id="dislike_container">
+                        <div id="dislike_button"><a href="{{ url_for('like_action', post_id=post.id, action='like') }}"><div class="button">&#128077</div></a></div>
+                        <div id="dislike_count"><p>{{ post.likes.count() }}</p></div>
+                    </div>
                 {% endif %}
-                <p style="width: 11%; margin-top: 20px;">{{ post.likes.count() }}&#128077</p>
             </div>
         </div>
     </div>

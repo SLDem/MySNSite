@@ -8,22 +8,30 @@
     </head>
     <body style="height: 937px;">
     <style type="text/css">
-    #container_post{width:100%; height: 190px; margin-bottom: 2%;}
-    #left_post{float: left; width: 160px; margin-left: 1%; margin-top: 0.1%;}
-    #center_post{margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 1%;}
-    #right_post{float: right; width: 120px; margin-top: -120px;}
-
-    #container_comment{width:100%; height: 190px;}
-    #left_comment{float: left; width: 30px; margin-left: 2%; margin-top: 2%;}
-    #center_comment{margin: 0 auto; width: 70%; margin-top: 1%; margin-left: 5.5%;}
-    #right_comment{float: right; width: 120px; margin-top: -150px;}
-
-    #container_post_comment{width:100%;}
-    #left_post_comment{float: left; width: 20px; margin-left: 2%; margin-top: 2.7%;}
-    #right_post_comment{margin: 0 auto; width: 80%; margin-top: 1.27%; margin-left: 100px; margin-right: 50px;}
-
     #page-container {position: relative; min-height:100%; height: auto !important; height: 100%; padding-bottom: 100px;}
     #main-footer {position: absolute; bottom: 0; width: 100%; height: 100px; background: url('/static/footer_bg.jpg');}
+
+    #container_post {width:100%; height: 190px; margin-bottom: 2%;}
+    #left_post {float: left; width: 160px; margin-left: 1%; margin-top: 0.1%;}
+    #center_post {margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 1%;}
+    #right_post {float: right; width: 120px; margin-top: -100px;}
+
+    #container_comment {width: 100%; height: 150%;}
+    #left_comment {float: left; width: 50px; margin-left: 2%; margin-top: 2%;}
+    #center_comment {margin: 0 auto; width: 70%; margin-top: 1%; margin-left: 5.5%;}
+    #right_comment {float: right; width: 120px; margin-top: -115px;}
+
+    #container_post_comment {width:100%;}
+    #left_post_comment {float: left; width: 20px; margin-left: 15px; margin-top: 2px; }
+    #right_post_comment {margin: 0 auto; width: 80%; margin-top: 1.27%; margin-left: 100px; margin-right: 50px;}
+
+    #like_container {width: 100%;}
+    #like_button {float: left; width: 20px;}
+    #like_count {margin: 0 auto; width: 5px; margin-top: 1%;}
+
+    #dislike_container {width: 100%;}
+    #dislike_button {float: left; width: 20px;}
+    #dislike_count {margin: 0 auto; width: 5px; margin-top: 1%;}
 
     .avatar {
     border: 1px solid #000;
@@ -42,6 +50,7 @@
     border: 7px solid transparent;
     /* border-image: url('/static/border6.png') 30 round; */
     border-color: #E69942;
+    border-radius: 0 0 6px 6px;
     margin-bottom: 1rem;
     }
 
@@ -60,10 +69,18 @@
     margin-bottom: 2%;
     }
 
-    .comment_with_background {
+    .comment_with_background_image {
     border: 10px solid transparent;
     padding: 15px;
     border-image: url('/static/border6.png') 30 stretch;
+    }
+
+    .comment_with_border {
+    border: 4px solid #FD8C46;
+    padding: 15px;
+    padding-bottom: 50px;
+    border-radius: 20px;
+    margin-bottom: 5px;
     }
 
     .message {
