@@ -14,7 +14,6 @@ import os
 def home():
     if current_user.is_authenticated:
         form = PostForm()
-
         if form.validate_on_submit():
             post = Post(body=form.post.data, author=current_user)
             db.session.add(post)
