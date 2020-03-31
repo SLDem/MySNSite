@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db, ALLOWED_EXTENSIONS
 from app.models import User, Post, Comment, Message
-from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm, CommentForm, MessageForm
+from app.forms import LoginForm, RegisterForm, EditProfileForm, PostForm, CommentForm, MessageForm, SearchForm
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.utils import secure_filename
 import os
@@ -89,6 +89,17 @@ def private_messages(recipient):
 
     return render_template('private_messages.html', title='Private Messages', recipient=recipient, form=form,
                            messages=messages.items, next_url=next_url, prev_url=prev_url)
+
+
+# search
+@login_required
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    form = SearchForm()
+    if form.validate_on_submit():
+        result = Post.query.filter(Post.body.like('%' + form.request_field.data + '%'))
+        return render_template('search.html', posts=result, form=form, title='Search Posts')
+    return render_template('search.html', form=form, title='Search Posts')
 
 
 # logging functionality

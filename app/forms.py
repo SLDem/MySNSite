@@ -58,3 +58,8 @@ class CommentForm(FlaskForm):
 class MessageForm(FlaskForm):
     message = TextAreaField("Message: ", validators=[DataRequired()])
     submit = SubmitField("Send")
+
+
+class SearchForm(FlaskForm):
+    request_field = TextAreaField("Search", validators=[DataRequired(), Length(min=1, max=60)])
+    submit = SubmitField("Search")

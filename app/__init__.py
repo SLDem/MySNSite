@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
 from flask_moment import Moment
 from flask_avatars import Avatars
+
 import os
 
 
@@ -20,6 +21,7 @@ csrf.init_app(app)
 moment = Moment(app)
 avatars = Avatars(app)
 
+
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, r'static')
 ALLOWED_EXTENSIONS = {'jpg'}
@@ -32,8 +34,10 @@ app.config['SECRET_KEY'] = 'super_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(basedir, "app.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-
 from app import routes, models
+

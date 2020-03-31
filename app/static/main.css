@@ -40,7 +40,7 @@
     .navbar_bordered {
     border: 7px solid transparent;
     /* border-image: url('/static/border6.png') 30 round; */
-    border-color: #E69942;
+    border-color: #E7E7E7;
     border-radius: 0 0 6px 6px;
     margin-bottom: 1rem;
     }
@@ -67,7 +67,7 @@
     }
 
     .comment_with_border {
-    border: 4px solid #FD8C46;
+    border: 3px solid #FD8C46;
     padding: 15px;
     padding-bottom: 50px;
     border-radius: 20px;

@@ -52,9 +52,9 @@
 
     <!-- Comments -->
     {% for comment in comments %}
-    {% if comment in post.comments %}
-    {% include "_comment.html" %}
-    {% endif %}
+        {% if comment in post.comments %}
+            {% include "_comment.html" %}
+        {% endif %}
     {% endfor %}
 
 
