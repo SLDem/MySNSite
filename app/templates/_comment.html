@@ -25,12 +25,12 @@
             {% if current_user.liked_comment(comment) %}
                 <div id="like_container">
                     <div id="like_button"><a href="{{ url_for('comment_like_action', comment_id=comment.id, action='dislike') }}"><div class="button">&#128078</div></a></div>
-                    <div id="like_count"><p>{{ post.likes.count() }}</p></div>
+                    <div id="like_count"><p>{{ comment.comment_likes.count() }}</p></div>
                 </div>
             {% else %}
                 <div id="dislike_container">
                     <div id="dislike_button"><a href="{{ url_for('comment_like_action', comment_id=comment.id, action='like') }}"><div class="button">&#128077</div></a></div>
-                    <div id="dislike_count"><p>{{ post.likes.count() }}</p></div>
+                    <div id="dislike_count"><p>{{ comment.comment_likes.count() }}</p></div>
                 </div>
             {% endif %}
             <div class="delete_button">

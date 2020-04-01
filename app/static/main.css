@@ -9,8 +9,8 @@
 
     #container_comment {width: 100%; height: 190px;}
     #left_comment {float: left; width: 130px; height: 130px; margin-left: 2%; margin-top: 2%;}
-    #center_comment {margin: 0 auto; width: 85%; margin-top: 1%;}
-    #right_comment {float: right; width: 150px; margin-top: -110px;}
+    #center_comment {margin: 0 auto; width: 85%; margin-top: 1%; margin-left: 50px;}
+    #right_comment {float: right; width: 170px; margin-top: -110px;}
 
     #container_post_comment {width:100%;}
     #left_post_comment {float: left; width: 20px; margin-left: 15px; margin-top: 2px; }
@@ -18,11 +18,15 @@
 
     #like_container {width: 100%;}
     #like_button {float: left; width: 20px;}
-    #like_count {margin: 0 auto; width: 5px; margin-top: 1%;}
+    #like_count {margin: 0 auto; width: 5px;}
 
     #dislike_container {width: 100%;}
     #dislike_button {float: left; width: 20px;}
-    #dislike_count {margin: 0 auto; width: 5px; margin-top: 1%;}
+    #dislike_count {margin: 0 auto; width: 5px;}
+
+    .delete_button {
+    margin-top: 2.1rem;
+    }
 
     .avatar {
     border: 1px solid #000;
@@ -40,7 +44,7 @@
     .navbar_bordered {
     border: 7px solid transparent;
     /* border-image: url('/static/border6.png') 30 round; */
-    border-color: #E7E7E7;
+    border-color: #3D3333;
     border-radius: 0 0 6px 6px;
     margin-bottom: 1rem;
     }
@@ -80,6 +84,14 @@
     font-size: 1.2rem;
     }
 
+    .yes_no_button {
+    text-decoration: none !important;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 1.2rem;
+    display: inline-block;
+    }
+
+
     .button {
     outline: none !important;
     display: inline-block;
@@ -108,6 +120,36 @@
     transform: translateY(4px);
     }
 
-    .delete_button {
-    margin-top: 3.1rem;
+
+
+    /* Second comment and post container (experimental) */
+
+    * {
+    box-sizing: border-box;
+    }
+
+    /* Create three unequal columns that floats next to each other */
+    .column {
+    float: left;
+    padding: 25px;
+    height: 300px; /* Should be removed. Only for demonstration */
+    }
+
+    .left {
+    width: 7%;
+    }
+
+    .right {
+    width: 10%;
+    }
+
+    .middle {
+    width: 83%;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+    content: "";
+    display: table;
+    clear: both;
     }

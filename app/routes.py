@@ -267,6 +267,7 @@ def delete_post(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     db.session.delete(post)
     db.session.commit()
+    flash('Post deleted!')
     return redirect(url_for('home'))
 
 
@@ -283,6 +284,7 @@ def delete_comment(comment_id):
     comment = Comment.query.filter_by(id=comment_id).first_or_404()
     db.session.delete(comment)
     db.session.commit()
+    flash('Comment deleted!')
     return redirect(url_for('home'))
 
 
