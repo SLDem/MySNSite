@@ -52,7 +52,7 @@
     .post_with_background {
     border: 10px solid transparent;
     padding: 15px;
-    border-image: url('/static/orange_border.png') 30 round;
+    border-image: url('/static/border1.png') 30 round;
     font-family: 'Lobster Two', cursive;
     font-size: 1.1rem;
     }
@@ -60,22 +60,22 @@
     .post {
     border: 10px solid transparent;
     padding: 15px;
-    border-image: url('/static/purple_border.png') 15 round;
+    border-image: url('/static/border2.png') 15 round;
     margin-bottom: 2%;
     }
 
     .comment_with_background_image {
     border: 10px solid transparent;
     padding: 15px;
-    border-image: url('/static/orange_border.png') 30 stretch;
+    border-image: url('/static/border1.png') 30 stretch;
     }
 
     .comment_with_border {
     height: 225px;
-    border: 3px solid #FD8C46;
+    border: 2px solid #3F3E3E;
     padding: 15px;
-    padding-bottom: 50px;
-    border-radius: 20px;
+    padding-bottom: 30px;
+
     margin-bottom: 5px;
     }
 
@@ -89,6 +89,7 @@
     font-family: 'Comic Sans MS', cursive;
     font-size: 1.2rem;
     display: inline-block;
+    color: white;
     }
 
 

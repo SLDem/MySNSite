@@ -1,8 +1,8 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% block app_content %}
-<table class="table table-bordered" style="border-left: 5px solid; border-color: #FFA57E;">
+<table class="table table-bordered" style="border-left: 5px solid; border-color: grey;">
     <tr>
-        <td width="50px" style="background-color: #DEE1E1; border-right: 1px solid #FFA57E;">
+        <td width="50px" style="background-color: #DEE1E1; border-right: 1px solid grey;">
             <a href="{{ url_for('user', username=message.author.username) }}">
                 {% if message.author.avatar_set %}
                     <img height="45px" width="45px" src="{{ url_for('static', filename=message.author.username + '.jpg') }}">

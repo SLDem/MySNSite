@@ -240,9 +240,11 @@ def like_action(post_id, action):
     if action == 'like':
         current_user.like(post)
         db.session.commit()
+        flash('Post Liked!')
     elif action == 'dislike':
         current_user.dislike(post)
         db.session.commit()
+        flash('Like Removed!')
     return redirect(request.referrer)
 
 
@@ -254,9 +256,11 @@ def comment_like_action(comment_id, action):
     if action == 'like':
         current_user.like_comment(comment)
         db.session.commit()
+        flash('Comment Liked!')
     elif action == 'dislike':
         current_user.dislike_comment(comment)
         db.session.commit()
+        flash('Like Removed!')
     return redirect(request.referrer)
 
 

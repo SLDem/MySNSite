@@ -11,7 +11,7 @@
                 {% endif %}
             </td>
             <td>
-                <h3 style="margin-left: 1%; color: #b83b5e;">{{ user.username }}</h3>
+                <h3 style="margin-left: 1%">{{ user.username }}</h3>
                 {% if user.about_me %}
 
                     <p style="margin-left: 2%; width: 220%;">About me: {{ user.about_me }}</p>
@@ -21,7 +21,7 @@
                 <p style="margin-left: 2%; width: 220%;">Followers: {{ user.followers.count() }} Following: {{ user.followed.count() }}</p>
 
                 {% if user == current_user %}
-                    <p style="margin-left: 2%;"></p>
+                    <p>This is your profile page!</p>
                 {% elif not current_user.is_following(user) %}
                     <p style="margin-left: 2%;"><a href="{{ url_for('follow', username=user.username) }}">Follow</a></p>
                 {% else %}
