@@ -45,6 +45,11 @@
                     <div id="dislike_count"><p>{{ post.likes.count() }}</p></div>
                 </div>
                 {% endif %}
+                <div class="delete_button">
+                    {% if current_user.username == post.author.username %}
+                        <a href="{{url_for('are_you_sure_post', post_id=post.id)}}">Delete Post</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

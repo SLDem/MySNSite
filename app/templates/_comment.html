@@ -4,9 +4,9 @@
         <div id="left_comment">
             <a href="{{ url_for('user', username=comment.commenter.username) }}">
                 {% if comment.commenter.avatar_set %}
-                    <img class="avatar" height="40px" width="40px" src="{{ url_for('static', filename=comment.commenter.username + '.jpg') }}">
+                    <img class="avatar" height="80px" width="80px" src="{{ url_for('static', filename=comment.commenter.username + '.jpg') }}">
                 {% else %}
-                    <img class="roboavatar" src="{{ avatars.robohash(comment.commenter.username, size='40') }}" />
+                    <img class="roboavatar" src="{{ avatars.robohash(comment.commenter.username, size='80') }}" />
                 {% endif %}
             </a>
         </div>
@@ -33,6 +33,11 @@
                     <div id="dislike_count"><p>{{ post.likes.count() }}</p></div>
                 </div>
             {% endif %}
+            <div class="delete_button">
+                {% if current_user.username == post.author.username %}
+                    <a href="{{url_for('are_you_sure_comment', comment_id=comment.id)}}">Delete Comment</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

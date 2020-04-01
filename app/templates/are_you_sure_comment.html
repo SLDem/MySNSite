@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block app_content %}
+    <h4>Are you sure?</h4>
+    <a href="{{url_for('delete_comment', comment_id=comment.id)}}">Yes</a>
+    <a href="{{url_for('home')}}">No</a>
+{% endblock %}

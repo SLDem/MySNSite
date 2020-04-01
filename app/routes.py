@@ -260,6 +260,39 @@ def comment_like_action(comment_id, action):
     return redirect(request.referrer)
 
 
+# deleting of posts and comments
+@login_required
+@app.route('/delete_post/<int:post_id>')
+def delete_post(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+
+@login_required
+@app.route('/are_you_sure_post/<int:post_id>')
+def are_you_sure_post(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    return render_template('are_you_sure_post.html', post_id=post.id, post=post)
+
+
+@login_required
+@app.route('/delete_comment/<int:comment_id>')
+def delete_comment(comment_id):
+    comment = Comment.query.filter_by(id=comment_id).first_or_404()
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+
+@login_required
+@app.route('/are_you_sure_comment/<int:comment_id>')
+def are_you_sure_comment(comment_id):
+    comment = Comment.query.filter_by(id=comment_id).first_or_404()
+    return render_template('are_you_sure_comment.html', comment_id=comment.id, comment=comment)
+
+
 # Carmen
 @login_required
 @app.route('/carmen')

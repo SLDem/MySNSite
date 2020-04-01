@@ -5,12 +5,12 @@
     #container_post {width:100%; height: 190px; margin-bottom: 2%;}
     #left_post {float: left; width: 160px; margin-left: 1%; margin-top: 0.1%;}
     #center_post {margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 1%;}
-    #right_post {float: right; width: 120px; margin-top: -100px;}
+    #right_post {float: right;  width: 150px; margin-top: -100px;}
 
-    #container_comment {width: 100%; height: 150%;}
-    #left_comment {float: left; width: 50px; margin-left: 2%; margin-top: 2%;}
-    #center_comment {margin: 0 auto; width: 70%; margin-top: 1%; margin-left: 5.5%;}
-    #right_comment {float: right; width: 120px; margin-top: -115px;}
+    #container_comment {width: 100%; height: 190px;}
+    #left_comment {float: left; width: 130px; height: 130px; margin-left: 2%; margin-top: 2%;}
+    #center_comment {margin: 0 auto; width: 85%; margin-top: 1%;}
+    #right_comment {float: right; width: 150px; margin-top: -110px;}
 
     #container_post_comment {width:100%;}
     #left_post_comment {float: left; width: 20px; margin-left: 15px; margin-top: 2px; }
@@ -26,12 +26,12 @@
 
     .avatar {
     border: 1px solid #000;
-    border-radius: 10%;
+    border-radius: 15px;
     }
 
     .roboavatar {
     border-style: solid;
-    border-radius: 10%;
+    border-radius: 15px;
     border-color: black;
     border-width: 1px;
     background-color: white;
@@ -67,6 +67,7 @@
     }
 
     .comment_with_border {
+    height: 225px;
     border: 3px solid #FD8C46;
     padding: 15px;
     padding-bottom: 50px;
@@ -105,4 +106,8 @@
     background-color: #C4C8CE;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
+    }
+
+    .delete_button {
+    margin-top: 3.1rem;
     }
