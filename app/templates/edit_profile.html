@@ -9,5 +9,5 @@
     </div>
     <p style="margin-left: 0.2%; margin-top: 1%;"><a href="{{ url_for('upload_avatar') }}">Upload Avatar</a></p>
     <hr>
-    <a href="{{ url_for('are_you_sure_user', username=current_user.username) }}">Delete Your Page</a>
+    <p style="margin-left: 0.2%; margin-top: 1%;"><a href="{{ url_for('are_you_sure_user', username=current_user.username) }}">Delete Your Page</a></p>
 {% endblock %}

@@ -11,30 +11,28 @@
                 {% endif %}
             </td>
             <td>
-                <h3 style="margin-left: 1%">{{ user.username }}</h3>
-                {% if user.about_me %}
+                <div style="margin-left: 0.5rem; width: 220%;">
+                    <h3>{{ user.username }}</h3>
+                    {% if user.about_me %}
 
-                    <p style="margin-left: 2%; width: 220%;">About me: {{ user.about_me }}</p>
+                        <p>About me: {{ user.about_me }}</p>
 
-                {% endif %}
+                    {% endif %}
 
-                <p style="margin-left: 2%; width: 220%;">Followers: {{ user.followers.count() }} Following: {{ user.followed.count() }}</p>
+                    <p style="margin-left: 0.2rem;">Followers: {{ user.followers.count() }} Following: {{ user.followed.count() }}</p>
 
-                {% if user == current_user %}
-                    <p>This is your profile page!</p>
-                {% elif not current_user.is_following(user) %}
-                    <p style="margin-left: 2%;"><a href="{{ url_for('follow', username=user.username) }}">Follow</a></p>
-                {% else %}
-                    <p style="margin-left: 2%;"><a href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a></p>
-                {% endif %}
+                    {% if user == current_user %}
+                        <p>This is your profile page!</p>
+                    {% elif not current_user.is_following(user) %}
+                    <button class="btn btn-dark"><a href="{{ url_for('follow', username=user.username) }}"><div class="user_page_link"><span>Follow</span></div></a></button>
+                    {% else %}
+                    <button class="btn btn-dark"><a href="{{ url_for('unfollow', username=user.username) }}"><div class="user_page_link"><span>Unfollow</span></div></a></button>
+                    {% endif %}
 
-                {% if user != current_user %}
-                <p>
-                    <a style="margin-left: 2%" href="{{ url_for('private_messages',
-                                        recipient=user.username) }}">
-                        {{ 'Send private message' }}
-                    </a>
-                </p>
+                    {% if user != current_user %}
+                    <button class="btn btn-dark"><a href="{{ url_for('private_messages', recipient=user.username) }}"><div class="user_page_link"><span>
+                        {{ 'Send private message' }}</span></div></a></button>
+                </div>
                 {% endif %}
             </td>
         </tr>

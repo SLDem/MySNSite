@@ -42,7 +42,7 @@
     }
 
     .navbar_bordered {
-    border: 7px solid transparent;
+    border: 4px solid transparent;
     /* border-image: url('/static/border6.png') 30 round; */
     border-color: #3D3333;
     border-radius: 0 0 6px 6px;
@@ -91,6 +91,8 @@
     display: inline-block;
     }
 
+    /* essentially the same button but slightly different in each entry */
+
     .yes_no_button {
     text-decoration: none !important;
     font-family: 'Comic Sans MS', cursive;
@@ -113,9 +115,17 @@
     font-size: 0.8rem;
     display: inline-block;
     color: white;
-
     }
 
+    .user_page_link {
+    text-decoration: none !important;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 0.8rem;
+    display: inline-block;
+    color: white;
+    }
+
+    /* same button ends here */
 
     .button {
     outline: none !important;

@@ -6,8 +6,8 @@
 
     <form action="{{ url_for('search') }}" method="post" style="margin-bottom: 4%;">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <input style="width: 100%; margin-bottom: 1rem;" type=text name=request_field>
-        <input type=submit value=Search name="Search">
+        <input style="width: 100%; margin-bottom: 1rem;" class="form-control" type=text name=request_field>
+        <input type=submit class="btn btn-outline-dark" value=Search name="Search">
     </form>
 
     {% for post in posts %}
