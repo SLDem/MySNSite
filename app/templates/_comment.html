@@ -4,22 +4,25 @@
         <div id="left_comment">
             <a href="{{ url_for('user', username=comment.commenter.username) }}">
                 {% if comment.commenter.avatar_set %}
-                    <img class="avatar" height="80px" width="80px" src="{{ url_for('static', filename=comment.commenter.username + '.jpg') }}">
+                    <img class="avatar" height="120px" width="120px" src="{{ url_for('static', filename=comment.commenter.username + '.jpg') }}">
                 {% else %}
-                    <img class="roboavatar" src="{{ avatars.robohash(comment.commenter.username, size='80') }}" />
+                    <img class="roboavatar" src="{{ avatars.robohash(comment.commenter.username, size='120') }}" />
                 {% endif %}
             </a>
+            <div style="position: relative; margin-top: 5px;">
+                <a href="{{ url_for('user', username=comment.commenter.username) }}">
+                    <button class="btn btn-dark"><div class="under_avatar_username_comment"><span>{{ comment.commenter.username }}</span></div></button>
+                </a>
+            </div>
         </div>
 
         <!-- Comment body -->
         <div id="center_comment">
-            <p><a href="{{ url_for('user', username=comment.commenter.username) }}">
-                {{ comment.commenter.username }}
-            </a><b>commented: </b></p>
+            </a><b>commented: </b>
             <p>{{ comment.body }}</p>
         </div>
 
-        <!-- Timestamp and like button -->
+        <!-- Timestamp, like and delete button -->
         <div id="right_comment">
             <p><b>..at</b> {{comment.timestamp.replace(microsecond=0)}}</p>
             {% if current_user.liked_comment(comment) %}
@@ -34,8 +37,8 @@
                 </div>
             {% endif %}
             <div class="delete_button">
-                {% if current_user.username == post.author.username %}
-                    <a href="{{url_for('are_you_sure_comment', comment_id=comment.id)}}">Delete Comment</a>
+                {% if current_user.username == post.author.username or current_user.username == comment.commenter.username %}
+                <a href="{{url_for('are_you_sure_comment', comment_id=comment.id)}}"><div class="button">Delete Comment</div></a>
                 {% endif %}
             </div>
         </div>

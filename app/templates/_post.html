@@ -14,10 +14,10 @@
                         {% endif %}
                     </a>
                 </div>
-                <div style="position: relative; margin-top: 160px;">
-                    <a href="{{ url_for('user', username=post.author.username) }}">
-                        {{ post.author.username }}
-                    </a>
+                <div style="position: relative; margin-top: 160px; margin-left: -5px;">
+                    <button class="btn btn-dark"><a href="{{ url_for('user', username=post.author.username) }}">
+                        <div class="under_avatar_username_post"><span>{{ post.author.username }}</span></div>
+                    </a></button>
                 </div>
             </div>
 
@@ -27,27 +27,27 @@
                 <p id="post{{ post.id }}">{{ post.body }}</p>
             </div>
 
-            <!-- Timestamp and like button -->
+            <!-- Timestamp, like and delete button -->
             <div id="right_post">
                 <p><b>..at</b> {{post.timestamp.replace(microsecond=0)}}</p>
                 {% if current_user.liked_post(post) %}
                 <div id="like_container">
                     <div id="like_button"><a href="{{ url_for('like_action', post_id=post.id, action='dislike') }}">
-                        <div class="button">&#128078</div>
-                    </a></div>
+                        <div class="button">&#128078</div></a>
+                    </div>
                     <div id="like_count"><p>{{ post.likes.count() }}</p></div>
                 </div>
                 {% else %}
                 <div id="dislike_container">
                     <div id="dislike_button"><a href="{{ url_for('like_action', post_id=post.id, action='like') }}">
-                        <div class="button">&#128077</div>
-                    </a></div>
+                        <div class="button">&#128077</div></a>
+                    </div>
                     <div id="dislike_count"><p>{{ post.likes.count() }}</p></div>
                 </div>
                 {% endif %}
                 <div class="delete_button">
                     {% if current_user.username == post.author.username %}
-                        <a href="{{url_for('are_you_sure_post', post_id=post.id)}}">Delete Post</a>
+                    <a href="{{url_for('are_you_sure_post', post_id=post.id)}}"><div class="button">Delete Post</div></a>
                     {% endif %}
                 </div>
             </div>
@@ -67,10 +67,10 @@
     <div id="container_post_comment">
         <div id="left_post_comment">
             {% if current_user.avatar_set %}
-            <img class="avatar" height="70px" width="70px"
+            <img class="avatar" height="80px" width="80px"
                  src="{{ url_for('static', filename=current_user.username + '.jpg') }}">
             {% else %}
-            <img class="roboavatar" src="{{ avatars.robohash(current_user.username, size='70') }}"/>
+            <img class="roboavatar" src="{{ avatars.robohash(current_user.username, size='80') }}"/>
             {% endif %}
         </div>
         <div class="comment_with_background">
@@ -79,7 +79,7 @@
                       style="margin-bottom: 4%;">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <input style="width: 100%; margin-bottom: 1%;" type=text name=comment>
-                    <input type=submit value=Comment!>
+                    <input type=submit class="btn btn-outline-dark" value=Comment!>
                 </form>
             </div>
         </div>

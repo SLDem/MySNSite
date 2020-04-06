@@ -4,25 +4,25 @@
 
     #container_post {width:100%; height: 190px; margin-bottom: 2%;}
     #left_post {float: left; width: 160px; margin-left: 1%; margin-top: 0.1%;}
-    #center_post {margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 1%;}
+    #center_post {margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 155px;}
     #right_post {float: right;  width: 150px; margin-top: -100px;}
 
     #container_comment {width: 100%; height: 190px;}
-    #left_comment {float: left; width: 130px; height: 130px; margin-left: 2%; margin-top: 2%;}
-    #center_comment {margin: 0 auto; width: 85%; margin-top: 1%; margin-left: 50px;}
-    #right_comment {float: right; width: 170px; margin-top: -110px;}
+    #left_comment {float: left; width: 130px; height: 130px; margin-left: 1%; margin-top: -0.2%;}
+    #center_comment {margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 155px;}
+    #right_comment {float: right; width: 170px; margin-top: -100px;}
 
     #container_post_comment {width:100%;}
-    #left_post_comment {float: left; width: 20px; margin-left: 15px; margin-top: 2px; }
+    #left_post_comment {float: left; width: 20px; margin-left: 5px; margin-top: 2px; }
     #right_post_comment {margin: 0 auto; width: 80%; margin-top: 1.27%; margin-left: 100px; margin-right: 50px;}
 
     #like_container {width: 100%;}
-    #like_button {float: left; width: 20px;}
-    #like_count {margin: 0 auto; width: 5px;}
+    #like_button {float: left; width: 50%;}
+    #like_count {margin: 0 auto; width: 40%; margin-right: 4rem; margin-top: 1%;}
 
     #dislike_container {width: 100%;}
-    #dislike_button {float: left; width: 20px;}
-    #dislike_count {margin: 0 auto; width: 5px;}
+    #dislike_button {float: left; width: 50%;}
+    #dislike_count {margin: 0 auto; width: 30%; margin-right: 4rem; margin-top: 1%;}
 
     .delete_button {
     margin-top: 2.1rem;
@@ -84,12 +84,36 @@
     font-size: 1.2rem;
     }
 
+    .name_link {
+    color: black !important;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 1.2rem;
+    display: inline-block;
+    }
+
     .yes_no_button {
     text-decoration: none !important;
     font-family: 'Comic Sans MS', cursive;
     font-size: 1.2rem;
     display: inline-block;
     color: white;
+    }
+
+    .under_avatar_username_post {
+    text-decoration: none !important;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 1.2rem;
+    display: inline-block;
+    color: white;
+    }
+
+    .under_avatar_username_comment {
+    text-decoration: none !important;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 0.8rem;
+    display: inline-block;
+    color: white;
+
     }
 
 
@@ -102,7 +126,7 @@
     text-align: center;
     text-decoration: none;
     outline: none;
-    color: black !important;
+    color: #303030 !important;
     background-color: white;
     border: solid;
     border-color: #7B7E84;
