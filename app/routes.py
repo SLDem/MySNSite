@@ -97,8 +97,9 @@ def private_messages(recipient):
 def search():
     form = SearchForm()
     if form.validate_on_submit():
-        result = Post.query.filter(Post.body.like('%' + form.request_field.data + '%'))
-        return render_template('search.html', posts=result, form=form, title='Search Posts')
+        posts = Post.query.filter(Post.body.like('%' + form.request_field.data + '%'))
+        comments = Comment.query.all()
+        return render_template('search.html', posts=posts, comments=comments, form=form, title='Search Posts')
     return render_template('search.html', form=form, title='Search Posts')
 
 

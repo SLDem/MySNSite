@@ -101,7 +101,7 @@
     color: white;
     }
 
-    .under_avatar_username_post {
+    .username_in_post {
     text-decoration: none !important;
     font-family: 'Comic Sans MS', cursive;
     font-size: 1.2rem;
@@ -109,18 +109,10 @@
     color: white;
     }
 
-    .under_avatar_username_comment {
+    .link_button {
     text-decoration: none !important;
     font-family: 'Comic Sans MS', cursive;
-    font-size: 0.8rem;
-    display: inline-block;
-    color: white;
-    }
-
-    .user_page_link {
-    text-decoration: none !important;
-    font-family: 'Comic Sans MS', cursive;
-    font-size: 0.8rem;
+    font-size: 1rem;
     display: inline-block;
     color: white;
     }

@@ -5,13 +5,14 @@
         <td width="50px" style="background-color: #DEE1E1; border-right: 1px solid grey;">
             <a href="{{ url_for('user', username=message.author.username) }}">
                 {% if message.author.avatar_set %}
-                    <img height="45px" width="45px" src="{{ url_for('static', filename=message.author.username + '.jpg') }}">
+                    <img height="60px" width="60px" src="{{ url_for('static', filename=message.author.username + '.jpg') }}">
                 {% else %}
-                    <img class="roboavatar" src="{{ avatars.robohash(message.author.username, size='45') }}" />
+                    <img class="roboavatar" src="{{ avatars.robohash(message.author.username, size='60') }}" />
                 {% endif %}
             </a>
         </td>
-        <td width="10%"><a href="{{url_for('user', username=message.author.username) }}">{{message.author.username}}</a> {{message.timestamp.replace(microsecond=0)}}</td>
+        <td width="10%"><a href="{{url_for('user', username=message.author.username) }}"><button class="btn btn-dark"><div class="link_button">
+            {{message.author.username}}</div></button></a> {{message.timestamp.replace(microsecond=0)}}</td>
         <td><div class="message">{{message.body}}</div></td>
     </tr>
 </table>

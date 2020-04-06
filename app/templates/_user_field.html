@@ -1,19 +1,19 @@
-<table class="table table-bordered" style="border-left: 5px solid; border-color: grey;">
+<table class="table table-bordered" style="border-left: 5px solid; border-color: #303030;">
     <tr>
-        <td width="70x" style="background-color: #E8E8E8; border-right: 1px solid grey;">
+        <td width="70x" style="background-color: #E8E8E8; border-right: 1px solid #303030;">
             <a href="{{ url_for('user', username=user.username) }}">
                 {% if user.avatar_set %}
-                    <img height="45px" width="45px" src="{{ url_for('static', filename=user.username + '.jpg') }}">
+                    <img height="60px" width="60px" src="{{ url_for('static', filename=user.username + '.jpg') }}">
                 {% else %}
-                    <img class="roboavatar" src="{{ avatars.robohash(user.username, size='45') }}" />
+                    <img class="roboavatar" src="{{ avatars.robohash(user.username, size='60') }}" />
                 {% endif %}
             </a>
         </td>
         <td style="width: 10%;">
-            <a href="{{ url_for('user', username=user.username) }}">{{ user.username }}</a> <!-- url for user messages (to be) -->
+            <a href="{{ url_for('user', username=user.username) }}"><button class="btn btn-dark"><div class="link_button">{{ user.username }}</div></button></a>
         </td>
         <td>
-            <a href="{{ url_for('private_messages', recipient=user.username) }}">View Messages</a>
+            <a href="{{ url_for('private_messages', recipient=user.username) }}"><button class="btn btn-dark"><div class="link_button">View Messages</div></button></a>
         </td>
     </tr>
 </table>

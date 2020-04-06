@@ -15,9 +15,9 @@
                     </a>
                 </div>
                 <div style="position: relative; margin-top: 160px; margin-left: -5px;">
-                    <button class="btn btn-dark"><a href="{{ url_for('user', username=post.author.username) }}">
-                        <div class="under_avatar_username_post"><span>{{ post.author.username }}</span></div>
-                    </a></button>
+                    <a href="{{ url_for('user', username=post.author.username) }}"><button class="btn btn-dark">
+                        <div class="username_in_post">{{ post.author.username }}</div>
+                    </button></a>
                 </div>
             </div>
 
