@@ -75,8 +75,10 @@ def private_messages(recipient):
     sent_messages = current_user.messages_sent.filter_by(recipient=recipient)
     messages = received_messages.union(sent_messages).order_by(Message.timestamp).paginate(page, 15, False)
 
-    next_url = url_for('private_messages', recipient=recipient.username, page=messages.next_num) if messages.has_next else None
-    prev_url = url_for('private_messages', recipient=recipient.username, page=messages.prev_num) if messages.has_prev else None
+    next_url = url_for('private_messages', recipient=recipient.username,
+                       page=messages.next_num) if messages.has_next else None
+    prev_url = url_for('private_messages', recipient=recipient.username,
+                       page=messages.prev_num) if messages.has_prev else None
 
     form = MessageForm()
     if form.validate_on_submit():

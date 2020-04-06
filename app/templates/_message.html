@@ -5,7 +5,7 @@
         <td width="50px" style="background-color: #DEE1E1; border-right: 1px solid grey;">
             <a href="{{ url_for('user', username=message.author.username) }}">
                 {% if message.author.avatar_set %}
-                    <img height="60px" width="60px" src="{{ url_for('static', filename=message.author.username + '.jpg') }}">
+                    <img class="avatar" height="60px" width="60px" src="{{ url_for('static', filename=message.author.username + '.jpg') }}">
                 {% else %}
                     <img class="roboavatar" src="{{ avatars.robohash(message.author.username, size='60') }}" />
                 {% endif %}

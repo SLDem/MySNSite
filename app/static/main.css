@@ -13,16 +13,16 @@
     #right_comment {float: right; width: 170px; margin-top: -100px;}
 
     #container_post_comment {width:100%;}
-    #left_post_comment {float: left; width: 20px; margin-left: 5px; margin-top: 2px; }
+    #left_post_comment {float: left; width: 20px; margin-left: 5px; margin-top: 5px; }
     #right_post_comment {margin: 0 auto; width: 80%; margin-top: 1.27%; margin-left: 100px; margin-right: 50px;}
 
     #like_container {width: 100%;}
-    #like_button {float: left; width: 50%;}
-    #like_count {margin: 0 auto; width: 40%; margin-right: 4rem; margin-top: 1%;}
+    #like_button {float: left; width: 40%; margin-bottom: 1.2rem;}
+    #like_count {float: right; width: 60%; margin-left: -40px; margin-top: 0.73rem;}
 
     #dislike_container {width: 100%;}
-    #dislike_button {float: left; width: 50%;}
-    #dislike_count {margin: 0 auto; width: 30%; margin-right: 4rem; margin-top: 1%;}
+    #dislike_button {float: left; width: 40%; margin-bottom: 1.2rem;}
+    #dislike_count {float: right; width: 60%; margin-left: -40px; margin-top: 0.73rem;}
 
     .delete_button {
     margin-top: 2.1rem;
@@ -42,10 +42,9 @@
     }
 
     .navbar_bordered {
-    border: 4px solid transparent;
+    border: 3px solid transparent;
     /* border-image: url('/static/border6.png') 30 round; */
     border-color: #3D3333;
-    border-radius: 0 0 6px 6px;
     margin-bottom: 1rem;
     }
 
@@ -128,13 +127,13 @@
     text-align: center;
     text-decoration: none;
     outline: none;
-    color: #303030 !important;
+    color: #3B3B3B !important;
     background-color: white;
     border: solid;
-    border-color: #7B7E84;
+    border-color: #303030;
     border-width: 1px;
     border-radius: 15px;
-    box-shadow: 0 9px #999;
+    box-shadow: 0 9px #303030;
     }
 
     .button:hover {
@@ -152,33 +151,3 @@
         background-color: #303030;
     }
 
-
-    /* Second comment and post container (experimental) */
-
-    * {
-    box-sizing: border-box;
-    }
-
-    .column {
-    float: left;
-    padding: 25px;
-    height: 300px;
-    }
-
-    .left {
-    width: 7%;
-    }
-
-    .right {
-    width: 10%;
-    }
-
-    .middle {
-    width: 83%;
-    }
-
-    .row:after {
-    content: "";
-    display: table;
-    clear: both;
-    }
