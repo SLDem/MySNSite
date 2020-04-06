@@ -264,6 +264,26 @@ def comment_like_action(comment_id, action):
     return redirect(request.referrer)
 
 
+# deleting user
+@login_required
+@app.route('/delete_user/<username>')
+def delete_user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    for post in user.posts:
+        db.session.delete(post)
+        db.session.commit()
+    db.session.delete(user)
+    db.session.commit()
+    flash('Your profile has been removed from the site')
+    return redirect(url_for('login'))
+
+
+@login_required
+@app.route('/are_you_sure_user/<username>')
+def are_you_sure_user(username):
+    return render_template('are_you_sure_user.html', username=current_user.username)
+
+
 # deleting of posts and comments
 @login_required
 @app.route('/delete_post/<int:post_id>')
