@@ -38,29 +38,30 @@
         </tr>
     </table>
 
-    <div style="margin-top: 2%;">
+    <div style="margin-top: 2%; margin-bottom: 1%;">
         {% if form %}
             {{ wtf.quick_form(form, button_map={'submit':'btn btn-outline-dark'}) }}
         {% endif %}
     </div>
 
-    <div style="margin-top: 1%;">
         {% for post in posts %}
             {% include "_post.html" %}
         {% endfor %}
+
+    <div style="margin-top: 1%;">
         <div style="margin-bottom: 2%;">
             <nav aria-label="...">
                 <ul>
                     <li class="next{% if not next_url %} disabled{% endif %}">
                         <a href="{{ next_url or '#' }}">
-                            <span aria-hidden="true">&rarr;</span> Older posts
+                            <button class="btn btn-dark"><div class="link_button"><span aria-hidden="true">&rarr;</span> Older posts</div></button>
                         </a>
                     </li>
                 </ul>
                 <ul class="pager">
                     <li class="previous{% if not prev_url %} disabled{% endif %}">
                         <a href="{{ prev_url or '#' }}">
-                            <span aria-hidden="true">&larr;</span> Newer posts
+                            <button class="btn btn-dark"><div class="link_button"><span aria-hidden="true">&larr;</span> Newer posts</div></button>
                         </a>
                     </li>
                 </ul>

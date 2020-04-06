@@ -147,6 +147,10 @@
     transform: translateY(4px);
     }
 
+    .dropdown-item:active {
+        color: #fff;
+        background-color: #303030;
+    }
 
 
     /* Second comment and post container (experimental) */
@@ -155,11 +159,10 @@
     box-sizing: border-box;
     }
 
-    /* Create three unequal columns that floats next to each other */
     .column {
     float: left;
     padding: 25px;
-    height: 300px; /* Should be removed. Only for demonstration */
+    height: 300px;
     }
 
     .left {
@@ -174,7 +177,6 @@
     width: 83%;
     }
 
-    /* Clear floats after the columns */
     .row:after {
     content: "";
     display: table;

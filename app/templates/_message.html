@@ -11,7 +11,7 @@
                 {% endif %}
             </a>
         </td>
-        <td width="10%"><a href="{{url_for('user', username=message.author.username) }}"><button class="btn btn-dark"><div class="link_button">
+        <td width="10.2%"><a href="{{url_for('user', username=message.author.username) }}"><button class="btn btn-dark"><div class="link_button">
             {{message.author.username}}</div></button></a> {{message.timestamp.replace(microsecond=0)}}</td>
         <td><div class="message">{{message.body}}</div></td>
     </tr>
