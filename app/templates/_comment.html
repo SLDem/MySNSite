@@ -4,14 +4,17 @@
         <div id="left_comment">
             <a href="{{ url_for('user', username=comment.commenter.username) }}">
                 {% if comment.commenter.avatar_set %}
-                    <img class="avatar" height="120px" width="120px" src="{{ url_for('static', filename=comment.commenter.username + '.jpg') }}">
+                <img class="avatar" height="120px" width="120px"
+                     src="{{ url_for('static', filename=comment.commenter.username + '.jpg') }}">
                 {% else %}
-                    <img class="roboavatar" src="{{ avatars.robohash(comment.commenter.username, size='120') }}" />
+                <img class="roboavatar" src="{{ avatars.robohash(comment.commenter.username, size='120') }}"/>
                 {% endif %}
             </a>
             <div style="position: relative; margin-top: 5px;">
                 <a href="{{ url_for('user', username=comment.commenter.username) }}">
-                    <button class="btn btn-dark"><div class="link_button">{{ comment.commenter.username }}</div></button>
+                    <button class="btn btn-dark">
+                        <div class="link_button">{{ comment.commenter.username }}</div>
+                    </button>
                 </a>
             </div>
         </div>
@@ -26,19 +29,28 @@
         <div id="right_comment">
             <p><b>..at</b> {{comment.timestamp.replace(microsecond=0)}}</p>
             {% if current_user.liked_comment(comment) %}
-                <div id="like_container">
-                    <div id="like_button"><a href="{{ url_for('comment_like_action', comment_id=comment.id, action='dislike') }}"><div class="button">&#128078</div></a></div>
-                    <div id="like_count"><p>{{ comment.comment_likes.count() }}</p></div>
-                </div>
+            <div id="like_container">
+                <div id="like_button"><a
+                        href="{{ url_for('comment_like_action', comment_id=comment.id, action='dislike') }}">
+                    <div class="button">&#128078</div>
+                </a></div>
+                <div id="like_count"><p>{{ comment.comment_likes.count() }}</p></div>
+            </div>
             {% else %}
-                <div id="dislike_container">
-                    <div id="dislike_button"><a href="{{ url_for('comment_like_action', comment_id=comment.id, action='like') }}"><div class="button">&#128077</div></a></div>
-                    <div id="dislike_count"><p>{{ comment.comment_likes.count() }}</p></div>
-                </div>
+            <div id="dislike_container">
+                <div id="dislike_button"><a
+                        href="{{ url_for('comment_like_action', comment_id=comment.id, action='like') }}">
+                    <div class="button">&#128077</div>
+                </a></div>
+                <div id="dislike_count"><p>{{ comment.comment_likes.count() }}</p></div>
+            </div>
             {% endif %}
             <div class="delete_button">
-                {% if current_user.username == post.author.username or current_user.username == comment.commenter.username %}
-                <a href="{{url_for('are_you_sure_comment', comment_id=comment.id)}}"><div class="button">Delete Comment</div></a>
+                {% if current_user.username == post.author.username or current_user.username ==
+                comment.commenter.username %}
+                <a href="{{url_for('are_you_sure_comment', comment_id=comment.id)}}">
+                    <div class="button">Delete Comment</div>
+                </a>
                 {% endif %}
             </div>
         </div>

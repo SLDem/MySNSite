@@ -12,9 +12,9 @@
     #center_comment {margin: 0 auto; width: 80%; margin-top: 1%; margin-left: 155px;}
     #right_comment {float: right; width: 170px; margin-top: -100px;}
 
-    #container_post_comment {width:100%;}
-    #left_post_comment {float: left; width: 20px; margin-left: 5px; margin-top: 5px; }
-    #right_post_comment {margin: 0 auto; width: 80%; margin-top: 1.27%; margin-left: 100px; margin-right: 50px;}
+    #container_post_comment {width:99%;}
+    #left_post_comment {float: left; width: 4.5%; margin-left: 5px; margin-top: 5px; }
+    #right_post_comment {margin: 0 auto; width: 95.4%; margin-top: 1.27%; margin-left: 100px;}
 
     #like_container {width: 100%;}
     #like_button {float: left; width: 40%; margin-bottom: 1.2rem;}
@@ -29,28 +29,27 @@
     }
 
     .avatar {
-    border: 1px solid #000;
-    border-radius: 15px;
+    border: 1px solid #303030;
+    border-radius: 10px;
     }
 
     .roboavatar {
     border-style: solid;
     border-radius: 15px;
-    border-color: black;
+    border-color: #303030;
     border-width: 1px;
     background-color: white;
     }
 
     .navbar_bordered {
     border: 3px solid transparent;
-    /* border-image: url('/static/border6.png') 30 round; */
     border-color: #3D3333;
     margin-bottom: 1rem;
     }
 
     .post_with_background {
     border: 10px solid transparent;
-    padding: 15px;
+    padding: 10px;
     border-image: url('/static/border1.png') 30 round;
     font-family: 'Lobster Two', cursive;
     font-size: 1.1rem;
@@ -71,10 +70,9 @@
 
     .comment_with_border {
     height: 225px;
-    border: 2px solid #3F3E3E;
+    border: 2px solid #303030;
     padding: 15px;
     padding-bottom: 30px;
-
     margin-bottom: 5px;
     }
 
@@ -142,12 +140,12 @@
 
     .button:active {
     background-color: #C4C8CE;
-    box-shadow: 0 5px #666;
+    box-shadow: 0 5px #303030;
     transform: translateY(4px);
     }
 
     .dropdown-item:active {
-        color: #fff;
-        background-color: #303030;
+    color: #fff;
+    background-color: #303030;
     }
 
