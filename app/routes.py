@@ -277,7 +277,7 @@ def delete_user(username):
         db.session.commit()
     db.session.delete(user)
     db.session.commit()
-    flash('Your profile has been removed from the site')
+    flash('Your profile has been removed from the site!')
     return redirect(url_for('login'))
 
 
